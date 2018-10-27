@@ -5,11 +5,13 @@ import { MyMaterialModule } from '../shared/my-material.module';
 
 // Components
 import { SportsComponent } from './sports/sports.component';
+import { SettingsComponent } from './settings.component';
 
 
 @NgModule({
     declarations: [
-        SportsComponent
+        SportsComponent,
+        SettingsComponent
     ],
     imports: [
         MyMaterialModule

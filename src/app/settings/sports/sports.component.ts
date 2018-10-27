@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sport } from '../../models/models';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sports',
@@ -17,7 +18,9 @@ export class SportsComponent implements OnInit {
   selectedItems: Sport[];
 
   @ViewChild(MatSort) sort: MatSort;
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
 
     this.sportsList = new MatTableDataSource([
       {
@@ -75,5 +78,9 @@ export class SportsComponent implements OnInit {
     this.selectedItems.forEach(selectedSport => {
       this.sportsList.data = this.sportsList.data.filter(sport => selectedSport.id !== sport.id);
     });
+  }
+
+  cancel() {
+    this.router.navigate(['/settings']);
   }
 }

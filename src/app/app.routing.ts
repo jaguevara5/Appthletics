@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { SportsComponent } from './settings/sports/sports.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { dashBoardRoutes } from './dashboard/dashboard.routes';
 
 
 const appRoutes: Routes = [
     {
         path: '',
-        component: DashboardComponent
+        component: DashboardComponent,
+        children: dashBoardRoutes
     },
     {
         path: 'settings/sports',
