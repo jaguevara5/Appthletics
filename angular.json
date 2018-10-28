@@ -23,8 +23,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              {
+                "input": "src/my-theme.scss"
+              },
+              "src/styles.css"
             ],
             "scripts": []
           },

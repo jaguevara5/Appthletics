@@ -12692,7 +12692,7 @@ input:focus {
 /* Navbar */
 .navbar.default-layout {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(120deg, #00e4d0, #5983e8);
+  background: #BDBDBD;
   transition: background 0.25s ease;
   -webkit-transition: background 0.25s ease;
   -moz-transition: background 0.25s ease;
@@ -13039,7 +13039,7 @@ html {
       width: 100%; } }
 
 .content-wrapper {
-  background: #f2f8f9;
+  background: #fff;
   padding: 1.5rem 1.7rem;
   width: 100%;
   -webkit-flex-grow: 1;
