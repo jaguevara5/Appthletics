@@ -24,23 +24,23 @@ export class SportsComponent implements OnInit {
 
     this.sportsList = new MatTableDataSource([
       {
-        id: 1,
+        id: '1',
         name: 'Footbal'
       },
       {
-        id: 2,
+        id: '2',
         name: 'Volleyball'
       },
       {
-        id: 3,
+        id: '3',
         name: 'Soccer'
       },
       {
-        id: 4,
+        id: '4',
         name: 'Swimming'
       },
       {
-        id: 5,
+        id: '5',
         name: 'Baseball'
       }
     ]);
