@@ -8,18 +8,20 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 
 // Components
-import { SportsComponent, AddUpdateSportDialog } from './sports/sports.component';
 import { SettingsComponent } from './settings.component';
+import { AddUpdateSportComponent } from './sports/add-update-sport/add-update-sport.component';
+import { SportsComponent } from './sports/sports.component';
 
 // Services
 import { SportsService } from './services/sports.service';
+
 
 
 @NgModule({
     declarations: [
         SportsComponent,
         SettingsComponent,
-        AddUpdateSportDialog
+        AddUpdateSportComponent
     ],
     imports: [
         HttpClientModule,
@@ -31,6 +33,6 @@ import { SportsService } from './services/sports.service';
     providers: [
         SportsService
     ],
-    entryComponents: [SportsComponent, AddUpdateSportDialog],
+    entryComponents: [SportsComponent, AddUpdateSportComponent],
   })
   export class SettingsModule { }

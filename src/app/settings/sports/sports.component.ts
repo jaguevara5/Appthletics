@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Sport } from '../../models/models';
-import { MatTableDataSource, MatSort, MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { SportsService } from '../services/sports.service';
 import { Subscription } from 'rxjs';
-import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FormGroup } from '@angular/forms';
+import { AddUpdateSportComponent } from './add-update-sport/add-update-sport.component';
 
 @Component({
   selector: 'app-sports',
@@ -82,7 +81,7 @@ export class SportsComponent implements OnInit, OnDestroy {
   }
 
   addSport() {
-    this.dialog.open(AddUpdateSportDialog, {
+    this.dialog.open(AddUpdateSportComponent, {
       data: {
 
       }
@@ -91,65 +90,5 @@ export class SportsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sportsSubsription.unsubscribe();
-  }
-}
-
-@Component({
-  selector: 'app-add-update-sport',
-  templateUrl: './add-update-sport.component.html',
-  styleUrls: ['./add-update-sport.component.css']
-})
-export class AddUpdateSportDialog implements OnInit {
-
-  title: string;
-  form = new FormGroup({});
-  model = {} as Sport;
-  fields: FormlyFieldConfig[];
-
-  constructor(
-    public dialogRef: MatDialogRef<AddUpdateSportDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: Sport,
-    private sportsService: SportsService,
-  ) { }
-
-  ngOnInit() {
-
-    if (this.data.id) {
-      this.title = 'Update Sport';
-      this.model.id = this.data.id;
-      this.model.name = this.data.name;
-    } else {
-      this.title = 'Add Sport';
-    }
-    this.initializeFields();
-  }
-
-  initializeFields() {
-    
-    this.fields = [
-      {
-        key: 'name',
-        type: 'input',
-        templateOptions: {
-          label: 'Name',
-          placeholder: 'Sport\'s name',
-          required: true,
-        }
-      }
-    ];
-  }
-
-  submit(model: Sport) {
-    console.log(model.name);
-    this.sportsService.addSport(model.name);
-    this.dialogRef.close();
-  }
-
-  isFormValid() {
-    return this.form.valid;
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }
