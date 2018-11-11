@@ -18,7 +18,7 @@ export class SportsComponent implements OnInit, OnDestroy {
   selection = new SelectionModel<Sport>(true, []);
 
   sportsList: MatTableDataSource<Sport>;
-  selectedItems: Sport[];
+  selectedItems: string[];
 
   showPage = false;
 
@@ -55,25 +55,27 @@ export class SportsComponent implements OnInit, OnDestroy {
       this.selection.clear();
       this.selectedItems = [];
     } else {
-      this.sportsList.data.forEach(row => this.selection.select(row));
-      this.selectedItems = this.sportsList.data;
+      this.sportsList.data.forEach(row => {
+        this.selection.select(row)
+        this.selectedItems.push(row.id);
+      });
     }        
   }
 
   rowClicked(item: Sport, wasChecked: boolean) {
-    console.log('Checkbox clicked...');
     if (wasChecked) {
-      this.selectedItems = this.selectedItems.filter(sport => item.id !== sport.id);
+      this.selectedItems = this.selectedItems.filter(id => item.id !== id);
     } else {
-      this.selectedItems.push(item);
+      this.selectedItems.push(item.id);
     }
   }
 
   removeSelectedSports() {
 
-    this.selectedItems.forEach(selectedSport => {
-      this.sportsList.data = this.sportsList.data.filter(sport => selectedSport.id !== sport.id);
-    });
+    // this.selectedItems.forEach(selectedSport => {
+    //   this.sportsList.data = this.sportsList.data.filter(sport => selectedSport.id !== sport.id);
+    // });
+    this.sportsService.deleteSports(this.selectedItems);
   }
 
   cancel() {
