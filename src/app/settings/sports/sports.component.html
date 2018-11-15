@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="showPage">
   <div class="">
     <h1>Sports</h1>
   </div>
@@ -35,7 +35,9 @@
     </table>
     <div class="row pt-2">
       <div class="col-3 mr-1">
-        <button mat-flat-button color="primary" class="btn-block" (click)="removeSelectedSports()">Remove Sport(s)</button>
+        <button mat-flat-button color="primary" class="btn-block"
+        (click)="removeSelectedSports()"
+        [disabled]="selectedItems.length === 0">Remove Sport(s)</button>
       </div>
       <div class="col-3 mr-1">
         <button mat-flat-button color="primary" class="btn-block" (click)="addSport()">Add Sport</button>

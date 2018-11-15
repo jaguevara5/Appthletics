@@ -11,6 +11,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { SettingsComponent } from './settings.component';
 import { AddUpdateSportComponent } from './sports/add-update-sport/add-update-sport.component';
 import { SportsComponent } from './sports/sports.component';
+import { ConfirmDeleteDialogComponent } from '../shared/components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 // Services
 import { SportsService } from './services/sports.service';
@@ -21,7 +22,8 @@ import { SportsService } from './services/sports.service';
     declarations: [
         SportsComponent,
         SettingsComponent,
-        AddUpdateSportComponent
+        AddUpdateSportComponent,
+        ConfirmDeleteDialogComponent
     ],
     imports: [
         HttpClientModule,
@@ -33,6 +35,6 @@ import { SportsService } from './services/sports.service';
     providers: [
         SportsService
     ],
-    entryComponents: [SportsComponent, AddUpdateSportComponent],
+    entryComponents: [SportsComponent, AddUpdateSportComponent, ConfirmDeleteDialogComponent],
   })
   export class SettingsModule { }

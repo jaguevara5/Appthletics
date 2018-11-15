@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Sport } from "../../models/models";
-import { Subject } from "rxjs";
-import { map } from 'rxjs/operators'
+import { Sport } from '../../models/models';
+import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class SportsService {
@@ -22,7 +22,7 @@ export class SportsService {
                     return {
                         id: sport._id,
                         name: sport.name
-                    }
+                    };
                 });
             }))
             .subscribe((sportsData) => {

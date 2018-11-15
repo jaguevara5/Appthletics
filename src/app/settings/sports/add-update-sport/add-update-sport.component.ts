@@ -12,20 +12,20 @@ import { FormGroup } from '@angular/forms';
     styleUrls: ['./add-update-sport.component.css']
   })
   export class AddUpdateSportComponent implements OnInit {
-  
+
     title: string;
     form = new FormGroup({});
     model = {} as Sport;
     fields: FormlyFieldConfig[];
-  
+
     constructor(
       public dialogRef: MatDialogRef<AddUpdateSportComponent>,
       @Inject(MAT_DIALOG_DATA) public data: Sport,
       private sportsService: SportsService,
     ) { }
-  
+
     ngOnInit() {
-  
+
       if (this.data.id) {
         this.title = 'Update Sport';
         this.model.id = this.data.id;
@@ -35,9 +35,9 @@ import { FormGroup } from '@angular/forms';
       }
       this.initializeFields();
     }
-  
+
     initializeFields() {
-      
+
       this.fields = [
         {
           key: 'name',
@@ -50,19 +50,17 @@ import { FormGroup } from '@angular/forms';
         }
       ];
     }
-  
+
     submit(model: Sport) {
-      console.log(model.name);
       this.sportsService.addSport(model.name);
       this.dialogRef.close();
     }
-  
+
     isFormValid() {
       return this.form.valid;
     }
-  
+
     onNoClick(): void {
       this.dialogRef.close();
     }
   }
-  

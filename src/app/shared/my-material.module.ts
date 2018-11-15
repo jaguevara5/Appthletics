@@ -4,8 +4,9 @@ import {
     MatSortModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatCardModule, 
-    MatDialogModule} from '@angular/material';
+    MatCardModule,
+    MatDialogModule,
+    MatDialogRef } from '@angular/material';
 import { NgModule } from '@angular/core';
 
 @NgModule({
