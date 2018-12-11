@@ -16,7 +16,7 @@ import { ConfirmDeleteDialogComponent } from 'src/app/shared/components/confirm-
 })
 export class SportsComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['select', 'name'];
+  displayedColumns: string[] = ['select', 'name', 'edit'];
   selection = new SelectionModel<Sport>(true, []);
 
   sportsList: MatTableDataSource<Sport>;
@@ -72,6 +72,15 @@ export class SportsComponent implements OnInit, OnDestroy {
     } else {
       this.selectedItems.push(item.id);
     }
+  }
+
+  editSport(item: Sport) {
+    this.dialog.open(AddUpdateSportComponent, {
+      data: {
+        id: item.id,
+        name: item.name
+      }
+    });
   }
 
   removeSelectedSports() {

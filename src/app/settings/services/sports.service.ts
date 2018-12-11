@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Sport } from '../../models/models';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Injectable()
 export class SportsService {
@@ -37,13 +38,25 @@ export class SportsService {
 
     addSport(name: string) {
         const sport: Sport = { name: name };
-        this.http.post<{message: string}>('http://localhost:3000/sports', sport)
+        this.http.post<{message: string, sportId: string}>('http://localhost:3000/sports', sport)
             .subscribe((response) => {
                 if (response.message === 'success') {
+                    sport.id = response.sportId;
                     this.sports.push(sport);
                 this.sportsUpdated.next([...this.sports]);
                 }
            });
+    }
+
+    updateSport(id: string, name: string) {
+        const sport: Sport = {
+            id: id,
+            name: name
+        };
+        this.http.put<{message: string}>('http://localhost:3000/sports' + id, sport)
+        .subscribe((response) => { 
+            console.log(response);
+        });
     }
 
     deleteSports(sports: string[]) {

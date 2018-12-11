@@ -17,6 +17,7 @@ import { FormGroup } from '@angular/forms';
     form = new FormGroup({});
     model = {} as Sport;
     fields: FormlyFieldConfig[];
+    isNew = true;
 
     constructor(
       public dialogRef: MatDialogRef<AddUpdateSportComponent>,
@@ -27,6 +28,7 @@ import { FormGroup } from '@angular/forms';
     ngOnInit() {
 
       if (this.data.id) {
+        this.isNew = false;
         this.title = 'Update Sport';
         this.model.id = this.data.id;
         this.model.name = this.data.name;
@@ -52,7 +54,12 @@ import { FormGroup } from '@angular/forms';
     }
 
     submit(model: Sport) {
-      this.sportsService.addSport(model.name);
+
+      if (this.isNew) {
+        this.sportsService.addSport(model.name);
+      } else {
+        this.sportsService.updateSport(model.id, model.name);
+      }
       this.dialogRef.close();
     }
 
