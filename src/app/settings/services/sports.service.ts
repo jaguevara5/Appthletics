@@ -54,8 +54,10 @@ export class SportsService {
             name: name
         };
         this.http.put<{message: string}>('http://localhost:3000/sports' + id, sport)
-        .subscribe((response) => { 
-            console.log(response);
+        .subscribe((response) => {
+            if (response.message === 'success') { 
+                this.getSports();
+            }
         });
     }
 
