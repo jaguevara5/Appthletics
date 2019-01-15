@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { Sport } from '../../models/models';
+import { Sport } from '../../../models/models';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { SportsService } from '../services/sports.service';
+import { SportsService } from '../../services/sports.service';
 import { Subscription, Observable,  } from 'rxjs';
 import { AddUpdateSportComponent } from './add-update-sport/add-update-sport.component';
 import { MatDialogRef } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from 'src/app/shared/components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { Store, select } from '@ngrx/store';
-import { LoadSports, DeleteSports } from '../actions/sports.actions';
-import * as fromRoot from '../../app.reducer';
+import { LoadSports, DeleteSports } from '../../actions/sports.actions';
+import * as fromRoot from '../../../app.reducer';
 
 @Component({
   selector: 'app-sports',

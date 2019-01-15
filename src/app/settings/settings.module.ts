@@ -9,8 +9,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 
 // Components
 import { SettingsComponent } from './settings.component';
-import { AddUpdateSportComponent } from './sports/add-update-sport/add-update-sport.component';
-import { SportsComponent } from './sports/sports.component';
+import { AddUpdateSportComponent } from './components/sports/add-update-sport/add-update-sport.component';
+import { SportsComponent } from './components/sports/sports.component';
 import { ConfirmDeleteDialogComponent } from '../shared/components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 // Services

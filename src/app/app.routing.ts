@@ -1,6 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SportsComponent } from './settings/sports/sports.component';
+import { SportsComponent } from './settings/components/sports/sports.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { dashBoardRoutes } from './dashboard/dashboard.routes';
