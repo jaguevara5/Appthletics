@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as sportsActions from '../actions/sports.actions';
-import { map, switchMap } from 'rxjs/operators';
+import * as uiActions from '../../shared/ui.actions';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { SportsService } from '../services/sports.service';
 import { Store } from '@ngrx/store';
 import { SportsState } from '../reducers/sports.reducer';
-import { Sport } from 'src/app/models/models';
+import { Sport, ToastrType } from 'src/app/models/models';
 import { of } from 'rxjs';
 
 @Injectable()
@@ -14,20 +15,30 @@ export class SportsEffects {
     @Effect() loadSports$ = this.actions$.pipe(
         ofType<sportsActions.LoadSports>(sportsActions.SportsActionTypes.LOAD_SPORTS),
         switchMap(() =>  {
-            return this.sportsService.getSports();
-        }),
-        switchMap((response: any) => {
-            if (response.message === 'success') {
-                const sports = response.data.map(sport => {
-                    return {
-                        id: sport._id,
-                        name: sport.name
-                    };
-                });
-                return of(new sportsActions.SportsLoaded(sports));
-            } else {
-                console.log('Error - Delete Sports');
-            }
+            return this.sportsService.getSports().pipe(
+                map((response) => {
+                    if (response.message === 'success') {
+                        const sports = response.data.map(sport => {
+                            return {
+                                id: sport._id,
+                                name: sport.name
+                            };
+                        });
+                        return new sportsActions.SportsLoaded(sports);
+                    } else {
+                        return new sportsActions.SportsError({
+                            title: 'Sports - Load Sports',
+                            message: 'Error while loading...'
+                        });
+                    }
+                }),
+                catchError(err => {
+                    return of(new sportsActions.SportsError({
+                        title: 'Sports - Load Sports',
+                        message: err.message
+                    }));
+                })
+            )
         })
     );
 
@@ -35,14 +46,29 @@ export class SportsEffects {
         ofType<sportsActions.DeleteSports>(sportsActions.SportsActionTypes.DELETE_SPORTS),
         map(action => action.payload),
         switchMap((sports) => {
-            return this.sportsService.deleteSports(sports);
-        }),
-        switchMap((response: any) => {
-            if (response.message === 'success') {
-                return of(new sportsActions.LoadSports())
-            } else {
-                console.log('Error - Delete Sports');
-            }
+            return this.sportsService.deleteSports(sports).pipe(
+                map((response: any) => {
+                    if (response.message === 'success') {
+
+                        this.store.dispatch(new sportsActions.SportsSuccess({
+                            title: 'Delete Sports',
+                            message: 'Sport(s) deleted succesfully'
+                        }));
+                        return new sportsActions.LoadSports();
+                    } else {
+                        return new sportsActions.SportsError({
+                            title: 'Sports - Delete Sports',
+                            message: 'Error while deleting sports...'
+                        });
+                    }
+                }),
+                catchError(err => {
+                    return of(new sportsActions.SportsError({
+                        title: 'Sports - Delete Sports',
+                        message: err.message
+                    }));
+                })
+            );
         })
     );
 
@@ -50,14 +76,30 @@ export class SportsEffects {
         ofType<sportsActions.UpdateSport>(sportsActions.SportsActionTypes.UPDATE_SPORT),
         map(action => action.payload),
         switchMap((sport) => {
-            return this.sportsService.updateSport(sport);
-        }),
-        switchMap((response: any) => {
-            if (response.message === 'success') {
-                return of(new sportsActions.LoadSports())
-            } else {
-                console.log('Error - Update Sport');
-            }
+            return this.sportsService.updateSport(sport).pipe(
+                map((response:any) => {
+                    if (response.message === 'success') {
+
+                        this.store.dispatch(new sportsActions.SportsSuccess({
+                            title: 'Update Sport',
+                            message: 'Sport updated succesfully'
+                        }));
+
+                        return of(new sportsActions.LoadSports())
+                    } else {
+                        return new sportsActions.SportsError({
+                            title: 'Sports - Update Sport',
+                            message: 'Error while updating sport...'
+                        });
+                    }
+                }),
+                catchError(err => {
+                    return of(new sportsActions.SportsError({
+                        title: 'Sports - Update Sport',
+                        message: err.message
+                    }));
+                })
+            )
         })
     );
 
@@ -65,7 +107,30 @@ export class SportsEffects {
         ofType<sportsActions.AddSport>(sportsActions.SportsActionTypes.ADD_SPORT),
         map(action => action.payload),
         switchMap((name) => {
-            return this.sportsService.addSport(name);
+            return this.sportsService.addSport(name).pipe(
+                map((response: any) => {
+                    if (response.message === 'success') {
+
+                        this.store.dispatch(new sportsActions.SportsSuccess({
+                            title: 'Add Sport',
+                            message: 'Sport added succesfully'
+                        }));
+
+                        return of(new sportsActions.LoadSports())
+                    } else {
+                        return new sportsActions.SportsError({
+                            title: 'Sports - Add Sport',
+                            message: 'Error while adding sport...'
+                        });
+                    }
+                }),
+                catchError(err => {
+                    return of(new sportsActions.SportsError({
+                        title: 'Sports - Add Sport',
+                        message: err.message
+                    }));
+                })
+            );
         }),
         switchMap((response: any) => {
             if (response.message === 'success') {
@@ -73,6 +138,28 @@ export class SportsEffects {
             } else {
                 console.log('Error - Add Sport');
             }
+        })
+    );
+
+    @Effect() sportsSuccess$ = this.actions$.pipe(
+        ofType<sportsActions.SportsSuccess>(sportsActions.SportsActionTypes.SPORTS_SUCCESS),
+        map((action: sportsActions.SportsSuccess) => {
+            return new uiActions.ShowToastr(({
+                title: action.payload.title,
+                body: action.payload.message,
+                type: ToastrType.success
+            }));
+        })
+    );
+
+    @Effect() sportsError$ = this.actions$.pipe(
+        ofType<sportsActions.SportsError>(sportsActions.SportsActionTypes.SPORTS_ERROR),
+        map((action: sportsActions.SportsError) => {
+            return new uiActions.ShowToastr(({
+                title: action.payload.title,
+                body: action.payload.message,
+                type: ToastrType.error
+            }));
         })
     );
 
