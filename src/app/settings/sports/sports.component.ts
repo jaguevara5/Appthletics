@@ -4,10 +4,13 @@ import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { SportsService } from '../services/sports.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable,  } from 'rxjs';
 import { AddUpdateSportComponent } from './add-update-sport/add-update-sport.component';
 import { MatDialogRef } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from 'src/app/shared/components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { Store, select } from '@ngrx/store';
+import { LoadSports, DeleteSports } from '../actions/sports.actions';
+import * as fromRoot from '../../app.reducer';
 
 @Component({
   selector: 'app-sports',
@@ -25,25 +28,32 @@ export class SportsComponent implements OnInit, OnDestroy {
   showPage = false;
   dialogRef: MatDialogRef<ConfirmDeleteDialogComponent>;
 
+  loading: boolean;
+
   private sportsSubsription: Subscription;
+  sports$: Observable<Sport[]>;
 
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     private router: Router,
     private sportsService: SportsService,
-    public dialog: MatDialog
+    public store: Store<fromRoot.AppState>,
+    public dialog: MatDialog,
   ) {
   }
 
   ngOnInit() {
-    this.sportsService.getSports();
-    this.sportsSubsription = this.sportsService.getSportsUpdateListener()
-      .subscribe((sports: Sport[]) => {
+
+    this.store.dispatch(new LoadSports());
+    this.sports$ = this.store.pipe(select(fromRoot.selectSportsList));
+    this.sportsSubsription = this.sports$.subscribe((sports: Sport[]) => {
+      if (sports) {
         this.sportsList = new MatTableDataSource(sports);
         this.sportsList.sort = this.sort;
         this.selectedItems = [];
         this.showPage = true;
-      });
+      }
+    });
   }
 
   isAllSelected() {
@@ -92,7 +102,7 @@ export class SportsComponent implements OnInit, OnDestroy {
 
     this.dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.sportsService.deleteSports(this.selectedItems);
+        this.store.dispatch(new DeleteSports(this.selectedItems));
       }
       this.dialogRef = null;
     });
