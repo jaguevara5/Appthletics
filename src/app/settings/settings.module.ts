@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 // Modules
-import { MyMaterialModule } from '../shared/my-material.module';
+import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
@@ -11,7 +11,6 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { SettingsComponent } from './settings.component';
 import { AddUpdateSportComponent } from './components/sports/add-update-sport/add-update-sport.component';
 import { SportsComponent } from './components/sports/sports.component';
-import { ConfirmDeleteDialogComponent } from '../shared/components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 // Services
 import { SportsService } from './services/sports.service';
@@ -22,12 +21,11 @@ import { SportsService } from './services/sports.service';
     declarations: [
         SportsComponent,
         SettingsComponent,
-        AddUpdateSportComponent,
-        ConfirmDeleteDialogComponent
+        AddUpdateSportComponent
     ],
     imports: [
         HttpClientModule,
-        MyMaterialModule,
+        SharedModule,
         ReactiveFormsModule,
         FormlyModule.forRoot(),
         FormlyMaterialModule
@@ -35,6 +33,6 @@ import { SportsService } from './services/sports.service';
     providers: [
         SportsService
     ],
-    entryComponents: [SportsComponent, AddUpdateSportComponent, ConfirmDeleteDialogComponent],
+    entryComponents: [SportsComponent, AddUpdateSportComponent],
   })
   export class SettingsModule { }

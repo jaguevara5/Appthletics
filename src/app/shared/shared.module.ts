@@ -5,8 +5,8 @@ import {
     MatCheckboxModule,
     MatButtonModule,
     MatCardModule,
-    MatDialogModule,
-    MatDialogRef } from '@angular/material';
+    MatDialogModule
+} from '@angular/material';
 import { NgModule } from '@angular/core';
 
 @NgModule({
@@ -28,5 +28,5 @@ import { NgModule } from '@angular/core';
         MatDialogModule
     ]
 })
-export class MyMaterialModule {
+export class SharedModule {
 }
