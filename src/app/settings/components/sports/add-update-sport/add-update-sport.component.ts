@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Sport } from '../../../models/models';
+import { Sport } from '../../../../models/models';
 import {  MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { SportsService } from '../../services/sports.service';
+import { SportsService } from '../../../services/sports.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as fromRoot from '../../../app.reducer';
-import { UpdateSport, AddSport } from '../../actions/sports.actions';
+import * as fromRoot from '../../../../app.reducer';
+import { UpdateSport, AddSport } from '../../../actions/sports.actions';
 
 
 @Component({
