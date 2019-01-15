@@ -4,6 +4,9 @@ import {  MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { SportsService } from '../../services/sports.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../app.reducer';
+import { UpdateSport, AddSport } from '../../actions/sports.actions';
 
 
 @Component({
@@ -23,6 +26,7 @@ import { FormGroup } from '@angular/forms';
       public dialogRef: MatDialogRef<AddUpdateSportComponent>,
       @Inject(MAT_DIALOG_DATA) public data: Sport,
       private sportsService: SportsService,
+      public store: Store<fromRoot.AppState>,
     ) { }
 
     ngOnInit() {
@@ -56,9 +60,9 @@ import { FormGroup } from '@angular/forms';
     submit(model: Sport) {
 
       if (this.isNew) {
-        this.sportsService.addSport(model.name);
+        this.store.dispatch(new AddSport(model.name));
       } else {
-        this.sportsService.updateSport(model.id, model.name);
+        this.store.dispatch(new UpdateSport(model));
       }
       this.dialogRef.close();
     }
