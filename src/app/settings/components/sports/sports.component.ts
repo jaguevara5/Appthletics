@@ -11,6 +11,7 @@ import { ConfirmDeleteDialogComponent } from 'src/app/shared/components/confirm-
 import { Store, select } from '@ngrx/store';
 import { LoadSports, DeleteSports } from '../../actions/sports.actions';
 import * as fromRoot from '../../../app.reducer';
+import { ShowToastr } from 'src/app/shared/ui.actions';
 
 @Component({
   selector: 'app-sports',

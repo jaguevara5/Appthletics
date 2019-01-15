@@ -8,8 +8,12 @@ import {
     MatDialogModule
 } from '@angular/material';
 import { NgModule } from '@angular/core';
+import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @NgModule({
+    declarations: [
+        ConfirmDeleteDialogComponent
+    ],
     imports: [
         CommonModule,
         MatTableModule,
@@ -25,8 +29,10 @@ import { NgModule } from '@angular/core';
         MatButtonModule,
         MatSortModule,
         MatCardModule,
-        MatDialogModule
-    ]
+        MatDialogModule,
+        ConfirmDeleteDialogComponent
+    ],
+    entryComponents: [ConfirmDeleteDialogComponent],
 })
 export class SharedModule {
 }

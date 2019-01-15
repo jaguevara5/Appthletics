@@ -12,12 +12,12 @@ export function uiReducer( state = uiInitialUIState, action: fromUI.actions ): U
 
     switch ( action.type ) {
 
-        case fromUI.LOADING_STARTED:
+        case fromUI.UIActionTypes.LOADING_STARTED:
             return {
                 isLoading: true
             };
 
-        case fromUI.LOADING_FINISHED:
+        case fromUI.UIActionTypes.LOADING_FINISHED:
             return {
                 isLoading: false
             };
