@@ -77,7 +77,7 @@ export class SportsEffects {
         map(action => action.payload),
         switchMap((sport) => {
             return this.sportsService.updateSport(sport).pipe(
-                map((response:any) => {
+                map((response: any) => {
                     if (response.message === 'success') {
 
                         this.store.dispatch(new sportsActions.SportsSuccess({
@@ -85,7 +85,7 @@ export class SportsEffects {
                             message: 'Sport updated succesfully'
                         }));
 
-                        return of(new sportsActions.LoadSports())
+                        return new sportsActions.LoadSports();
                     } else {
                         return new sportsActions.SportsError({
                             title: 'Sports - Update Sport',
@@ -99,7 +99,7 @@ export class SportsEffects {
                         message: err.message
                     }));
                 })
-            )
+            );
         })
     );
 
@@ -116,7 +116,7 @@ export class SportsEffects {
                             message: 'Sport added succesfully'
                         }));
 
-                        return of(new sportsActions.LoadSports())
+                        return new sportsActions.LoadSports();
                     } else {
                         return new sportsActions.SportsError({
                             title: 'Sports - Add Sport',
@@ -131,13 +131,6 @@ export class SportsEffects {
                     }));
                 })
             );
-        }),
-        switchMap((response: any) => {
-            if (response.message === 'success') {
-                return of(new sportsActions.LoadSports())
-            } else {
-                console.log('Error - Add Sport');
-            }
         })
     );
 
