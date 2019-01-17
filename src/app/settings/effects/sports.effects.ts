@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as sportsActions from '../actions/sports.actions';
 import * as uiActions from '../../shared/ui.actions';
@@ -38,7 +38,7 @@ export class SportsEffects {
                         message: err.message
                     }));
                 })
-            )
+            );
         })
     );
 
@@ -52,7 +52,7 @@ export class SportsEffects {
 
                         this.store.dispatch(new sportsActions.SportsSuccess({
                             title: 'Delete Sports',
-                            message: 'Sport(s) deleted succesfully'
+                            message: 'Sport(s) deleted successfully'
                         }));
                         return new sportsActions.LoadSports();
                     } else {
@@ -82,7 +82,7 @@ export class SportsEffects {
 
                         this.store.dispatch(new sportsActions.SportsSuccess({
                             title: 'Update Sport',
-                            message: 'Sport updated succesfully'
+                            message: 'Sport updated successfully'
                         }));
 
                         return new sportsActions.LoadSports();
@@ -113,7 +113,7 @@ export class SportsEffects {
 
                         this.store.dispatch(new sportsActions.SportsSuccess({
                             title: 'Add Sport',
-                            message: 'Sport added succesfully'
+                            message: 'Sport added successfully'
                         }));
 
                         return new sportsActions.LoadSports();
