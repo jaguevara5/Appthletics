@@ -3,7 +3,6 @@ import { Sport } from '../../../models/models';
 import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { SportsService } from '../../services/sports.service';
 import { Subscription, Observable,  } from 'rxjs';
 import { AddUpdateSportComponent } from './add-update-sport/add-update-sport.component';
 import { MatDialogRef } from '@angular/material';
@@ -11,7 +10,6 @@ import { ConfirmDeleteDialogComponent } from 'src/app/shared/components/confirm-
 import { Store, select } from '@ngrx/store';
 import { LoadSports, DeleteSports } from '../../actions/sports.actions';
 import * as fromRoot from '../../../app.reducer';
-import { ShowToastr } from 'src/app/shared/ui.actions';
 
 @Component({
   selector: 'app-sports',
@@ -29,7 +27,7 @@ export class SportsComponent implements OnInit, OnDestroy {
   showPage = false;
   dialogRef: MatDialogRef<ConfirmDeleteDialogComponent>;
 
-  loading: boolean;
+  isLoading: boolean;
 
   private sportsSubsription: Subscription;
   sports$: Observable<Sport[]>;
@@ -37,7 +35,6 @@ export class SportsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     private router: Router,
-    private sportsService: SportsService,
     public store: Store<fromRoot.AppState>,
     public dialog: MatDialog,
   ) {
@@ -45,6 +42,7 @@ export class SportsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.isLoading = true;
     this.store.dispatch(new LoadSports());
     this.sports$ = this.store.pipe(select(fromRoot.selectSportsList));
     this.sportsSubsription = this.sports$.subscribe((sports: Sport[]) => {
@@ -52,6 +50,7 @@ export class SportsComponent implements OnInit, OnDestroy {
         this.sportsList = new MatTableDataSource(sports);
         this.sportsList.sort = this.sort;
         this.selectedItems = [];
+        this.isLoading = false;
         this.showPage = true;
       }
     });

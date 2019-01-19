@@ -5,7 +5,8 @@ import {
     MatCheckboxModule,
     MatButtonModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
 } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog/confirm-delete-dialog.component';
@@ -20,7 +21,8 @@ import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog
         MatCheckboxModule,
         MatButtonModule,
         MatSortModule,
-        MatDialogModule
+        MatDialogModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         CommonModule,
@@ -30,7 +32,8 @@ import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog
         MatSortModule,
         MatCardModule,
         MatDialogModule,
-        ConfirmDeleteDialogComponent
+        ConfirmDeleteDialogComponent,
+        MatProgressSpinnerModule
     ],
     entryComponents: [ConfirmDeleteDialogComponent],
 })
