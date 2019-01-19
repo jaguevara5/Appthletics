@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const Sport = require('./models/sport');
+
+const postRoutes = require('./routes/sports');
 
 const app = express();
 
@@ -30,48 +31,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/sports', (req, res, next) => {
-    const post = new Sport({
-        name: req.body.name
-    });
-    post.save().then(createdSport => {
-        res.status(201).json({
-            message: 'success',
-            sportId: createdSport._id
-        });
-    });
-});
-
-app.get('/sports',(req, res, next) => {
-    Sport.find()
-    .then((documents) => {
-        res.status(200).json({
-            message: 'success',
-            data: documents
-        });
-    });
-});
-
-app.post('/sports/delete', (req, res, next) => {
-    Sport.deleteMany({ _id: {$in: req.body.sports }})
-    .then(() => {
-        res.status(200).json({
-            message: 'success'
-        });
-    });
-});
-
-app.put('/sports:id', (req, res, next) => {
-    const sport = new Sport({
-        _id: req.body.id,
-        name: req.body.name,
-    });
-    Sport.updateOne({ _id: req.params.id }, sport)
-    .then(() => {
-        res.status(200).json({
-            message: 'success'
-        });
-    });
-});
+app.use('/api/sports', postRoutes);
 
 module.exports = app;
