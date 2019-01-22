@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as uiActions from './ui.actions';
 import { tap } from 'rxjs/operators';
@@ -20,7 +20,7 @@ export class UIEffects {
                     break;
                 default:
                     this.toastrService.show(action.payload.body, action.payload.title);
-            }   
+            }
         }),
     );
 

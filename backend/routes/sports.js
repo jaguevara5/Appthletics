@@ -1,10 +1,11 @@
 const express = require('express');
 
 const Sport = require('../models/sport');
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
-router.post('', (req, res, next) => {
+router.post('', checkAuth, (req, res, next) => {
     const post = new Sport({
         name: req.body.name
     });
@@ -16,7 +17,7 @@ router.post('', (req, res, next) => {
     });
 });
 
-router.get('',(req, res, next) => {
+router.get('', checkAuth, (req, res, next) => {
     Sport.find()
     .then((documents) => {
         res.status(200).json({

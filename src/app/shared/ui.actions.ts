@@ -21,6 +21,6 @@ export class ShowToastr implements Action {
 }
 
 export type actions
-    = LoadingStartedAction 
+    = LoadingStartedAction
     | LoadingFinishedAction
     | ShowToastr;
