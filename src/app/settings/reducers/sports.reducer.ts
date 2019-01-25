@@ -22,5 +22,4 @@ export function sportsReducer( state = sportsInitialState, action: SportsActions
         default:
             return state;
     }
-};
-
+}
