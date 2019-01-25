@@ -4,7 +4,8 @@ import { User } from '../models/models';
 export const enum LoginActionTypes {
     USER_LOGIN= '[Login] User logging in...',
     LOGIN_SUCCESS = '[Login] Login success',
-    USER_LOGOUT = '[Login] User logout'
+    USER_LOGOUT = '[Login] User logout',
+    LOGIN_FAILED = '[Login] Login failed'
 }
 
 export class UserLoginAction implements Action {
@@ -20,7 +21,13 @@ export class UserLogout implements Action {
     readonly type = LoginActionTypes.USER_LOGOUT;
 }
 
+export class LoginFailed implements Action {
+    readonly type = LoginActionTypes.LOGIN_FAILED;
+    constructor(public payload: boolean) {}
+}
+
 export type LoginActions
     = UserLoginAction
     | LoginSuccess
-    | UserLogout;
+    | UserLogout
+    | LoginFailed;

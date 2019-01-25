@@ -4,6 +4,9 @@ import * as loginActions from './login.actions';
 import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
 
 @Injectable()
 export class LoginEffects {
@@ -19,18 +22,12 @@ export class LoginEffects {
                         localStorage.setItem('appthletics_token', response.data);
                         return new loginActions.LoginSuccess();
                     } else {
-                        // return new sportsActions.SportsError({
-                        //     title: 'Sports - Update Sport',
-                        //     message: 'Error while updating sport...'
-                        // });
+                        return new loginActions.LoginFailed(true);
                     }
                 }),
-                // catchError(err => {
-                //     return of(new sportsActions.SportsError({
-                //         title: 'Sports - Update Sport',
-                //         message: err.message
-                //     }));
-                // })
+                catchError(err => {
+                    return of(new loginActions.LoginFailed(true));
+                })
             );
         })
     );
@@ -47,12 +44,14 @@ export class LoginEffects {
     tap(() => {
         localStorage.removeItem('appthletics_token');
         this.router.navigate(['/login']);
+        this.store.dispatch(new loginActions.LoginFailed(false));
     })
   );
 
     constructor(
         private actions$: Actions,
         private loginService: LoginService,
-        private router: Router
+        private router: Router,
+        private store: Store<AppState>
     ) {}
 }

@@ -17,6 +17,7 @@
                 <input type="password" class="form-control" placeholder="*********" formControlName="password">
               </div>
             </div>
+            <div class="auth-error-message text-danger" *ngIf="authFailed">Authentication failed!</div>
             <!-- <div class="form-group">
                 <label class="label">District</label>
                 <div class="input-group">
