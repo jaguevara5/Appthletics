@@ -27,7 +27,7 @@ router.post('/login', (req, res, next) => {
             });
         }
         const token = jwt.sign(
-            { username: fetchedUser.username, userid: fetchedUser.userid }, 
+            { username: fetchedUser.username, userId: fetchedUser.userId }, 
             privateKEY, 
             { expiresIn: '1h' }
         );

@@ -2,17 +2,31 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
+
+router.get('', checkAuth, (req, res, next) => {
+    User.find()
+    .then((documents) => {
+        res.status(200).json({
+            message: 'success',
+            data: documents
+        });
+    });
+});
 
 router.post('/new', (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
     .then(hash => {
         const user = new User({
             username: req.body.username,
-            userid: req.body.userid,
+            name: req.body.name,
+            lastname: req.body.lastname,
+            userId: req.body.userId,
             password: hash
         });
+        console.log(user);
         user.save()
         .then(result => {
             res.status(201).json({

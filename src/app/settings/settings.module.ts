@@ -11,9 +11,12 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { SettingsComponent } from './settings.component';
 import { AddUpdateSportComponent } from './components/sports/add-update-sport/add-update-sport.component';
 import { SportsComponent } from './components/sports/sports.component';
+import { UsersComponent } from './components/users/users.component';
+import { AddUpdateUserComponent } from './components/users/add-update-user/add-update-user.component';
 
 // Services
 import { SportsService } from './services/sports.service';
+import { UsersService } from './services/users.service';
 
 
 
@@ -21,7 +24,9 @@ import { SportsService } from './services/sports.service';
     declarations: [
         SportsComponent,
         SettingsComponent,
-        AddUpdateSportComponent
+        AddUpdateSportComponent,
+        UsersComponent,
+        AddUpdateUserComponent
     ],
     imports: [
         HttpClientModule,
@@ -31,8 +36,13 @@ import { SportsService } from './services/sports.service';
         FormlyMaterialModule
     ],
     providers: [
-        SportsService
+        SportsService,
+        UsersService
     ],
-    entryComponents: [SportsComponent, AddUpdateSportComponent],
+    entryComponents: [
+        SportsComponent,
+        AddUpdateSportComponent,
+        AddUpdateUserComponent
+    ],
   })
   export class SettingsModule { }

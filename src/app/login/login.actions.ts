@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { User } from '../models/models';
+import { User } from '../settings/models/user';
 
 export const enum LoginActionTypes {
     USER_LOGIN= '[Login] User logging in...',

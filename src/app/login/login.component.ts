@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { User } from '../models/models';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectAuthFailed } from '../app.reducer';
 import { UserLoginAction } from './login.actions';
 import { Observable, Subscription } from 'rxjs';
 import * as fromRoot from '../app.reducer';
+import { User } from '../settings/models/user';
 
 @Component({
   selector: 'app-login',

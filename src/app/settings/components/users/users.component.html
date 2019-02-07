@@ -1,0 +1,75 @@
+<mat-spinner *ngIf="isLoading" style="text-align:center;"></mat-spinner>
+<div class="container" *ngIf="!isLoading">
+  <div class="">
+    <h1>Users</h1>
+  </div>
+
+  <div class="pt-4">
+    <table mat-table matSort [dataSource]="usersList" class="mat-elevation-z8">
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="rowClicked(row, selection.isSelected(row))" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef> User ID</th>
+        <td mat-cell *matCellDef="let element"> {{element.userId}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.lastname}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+        <td mat-cell *matCellDef="let element"> {{element.username}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef class="edit-column"></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-flat-button color="primary" class="btn-block" (click)="editUser(row)">Edit</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div class="row pt-2" *ngIf="showPage">
+      <div class="col-3 mr-1">
+        <button mat-flat-button color="primary" class="btn-block"
+        (click)="removeSelectedUsers()"
+        [disabled]="selectedItems.length === 0">Remove User(s)</button>
+      </div>
+      <div class="col-3 mr-1">
+        <button mat-flat-button color="primary" class="btn-block" (click)="createUser()">Add User</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex pt-5 action-buttons">
+    <div class="col-3 ">
+      <button mat-stroked-button color="warn" class="btn-block" (click)="cancel()">Cancel</button>
+    </div>
+    <div class="col-3  float-right">
+      <button mat-stroked-button color="accent" class="btn-block">Save</button>
+    </div>
+  </div>
+
+</div>
