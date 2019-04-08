@@ -14,13 +14,14 @@ export class UsersService {
     }
 
     createUser(newUser: User) {
-        // const user = {
-        //     name: newUser.name,
-        //     lastame: newUser.lastname,
-        //     username: newUser.username,
-        //     userId: newUser.userId,
-        //     password: newUser.password
-        // };
         return this.http.post<{message: string, data: any}>('http://localhost:3000/api/users/new', newUser);
+    }
+
+    deleteUsers(users: string[]) {
+        return this.http.post('http://localhost:3000/api/users/delete', {users: users});
+    }
+
+    updateUser(user: User) {
+        return this.http.put<{message: string}>('http://localhost:3000/api/users/' + user.id, user);
     }
 }

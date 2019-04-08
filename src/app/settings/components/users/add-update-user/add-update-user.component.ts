@@ -1,11 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../../app.reducer';
-import { UsersService } from '../../../../settings/services/users.service';
-import { CreateUser } from '../../../../settings/actions/users.actions';
+import { CreateUser, UpdateUser } from '../../../../settings/actions/users.actions';
 import { User } from 'src/app/settings/models/user';
 
 
@@ -22,110 +21,118 @@ export class AddUpdateUserComponent implements OnInit {
     fields: FormlyFieldConfig[];
     isNew = true;
     passwordDismatch = false;
+    passwordRequired: boolean;
+    userForm: FormGroup;
 
     constructor(
         public dialogRef: MatDialogRef<AddUpdateUserComponent>,
         @Inject(MAT_DIALOG_DATA) public data: User,
-        private usersService: UsersService,
-        public store: Store<fromRoot.AppState>,
+        public store: Store<fromRoot.AppState>
     ) { }
 
     ngOnInit() {
 
         if (this.data.userId) {
-            this.isNew = false;
             this.title = 'Update User';
-            this.model.userId = this.data.userId;
-            this.model.name = this.data.name;
-            this.model.lastname = this.data.lastname;
-            this.model.username = this.data.username;
+            this.passwordRequired = false;
+            this.model.id = this.data.id;
+            this.userForm = new FormGroup({
+                userId: new FormControl(this.data.userId, Validators.required),
+                name: new FormControl(this.data.name, Validators.required),
+                lastname: new FormControl(this.data.lastname, Validators.required),
+                username: new FormControl(this.data.username, Validators.required),
+                updatePassword: new FormControl(this.passwordRequired),
+                password: new FormControl(''),
+                confirmPassword: new FormControl('')
+            });
+            this.isNew = false;
         } else {
             this.title = 'Create User';
+            this.passwordRequired = true;
+            this.userForm = new FormGroup({
+                userId: new FormControl('', Validators.required),
+                name: new FormControl('', Validators.required),
+                lastname: new FormControl('', Validators.required),
+                username: new FormControl('', Validators.required),
+                password: new FormControl('', Validators.required),
+                confirmPassword: new FormControl('', Validators.required)
+            });
         }
-        this.initializeFields();
+        this.onChanges();
     }
 
-    initializeFields() {
+    onChanges() {
 
-        this.fields = [
-            {
-                key: 'userId',
-                type: 'input',
-                templateOptions: {
-                    label: 'User Id',
-                    placeholder: 'User Id',
-                    required: true,
-                }
-            },
-            {
-                key: 'name',
-                type: 'input',
-                templateOptions: {
-                    label: 'Name',
-                    placeholder: 'Name',
-                    required: true,
-                }
-            },
-            {
-                key: 'lastname',
-                type: 'input',
-                templateOptions: {
-                    label: 'Last Name',
-                    placeholder: 'Last Name',
-                    required: true,
-                }
-            },
-            {
-                key: 'username',
-                type: 'input',
-                templateOptions: {
-                    label: 'Username',
-                    placeholder: 'Username',
-                    required: true,
-                }
-            },
-            {
-                key: 'password',
-                type: 'input',
-                templateOptions: {
-                    label: 'Password',
-                    placeholder: 'Password',
-                    required: true,
-                }
-            },
-            {
-                key: 'comfirmPassword',
-                type: 'input',
-                templateOptions: {
-                    label: 'Comfirm Password',
-                    placeholder: 'Comfirm Password',
-                    required: true,
+        this.userForm.valueChanges.subscribe(val => {
+            this.model.userId = val.userId;
+            this.model.name = val.name;
+            this.model.lastname = val.lastname;
+            this.model.username = val.username;
+            if (this.isNew) {
+                this.model.password = val.password;
+                this.model.confirmPassword = val.confirmPassword;
+                this.passwordDismatch = this.model.password !== this.model.confirmPassword;
+            } else {
+                this.passwordRequired = val.updatePassword;
+                if (this.passwordRequired) {
+                    this.model.password = val.password;
+                    this.model.confirmPassword = val.confirmPassword;
+                    this.userForm.get('password').setValidators([Validators.required]);
+                    this.userForm.get('confirmPassword').setValidators([Validators.required]);
+                    this.passwordDismatch = this.model.password !== this.model.confirmPassword;
+                } else {
+                    this.passwordDismatch = false;
+                    this.userForm.get('password').setValidators(null);
+                    this.userForm.get('confirmPassword').setValidators(null);
                 }
             }
-        ];
+        });
     }
 
-    submit(model: User) {
+    submit() {
 
         if (this.isNew) {
-            if (this.model.password === this.model.comfirmPassword) {
+            const passwordConfirmed = this.model.password === this.model.confirmPassword;
+            if (passwordConfirmed) {
                 this.passwordDismatch = false;
-                this.store.dispatch(new CreateUser(model));
             } else {
                 this.passwordDismatch = true;
                 return;
             }
+            this.model.username = this.model.username.toLowerCase();
+            this.store.dispatch(new CreateUser(this.model));
         } else {
-            // this.store.dispatch(new CreateUser(model));
+            if (this.passwordRequired) {
+            const passwordConfirmed = this.model.password === this.model.confirmPassword;
+            if (passwordConfirmed) {
+                this.passwordDismatch = false;
+            } else {
+                this.passwordDismatch = true;
+                return;
+            }
+            this.store.dispatch(new UpdateUser(this.model));
+            }
         }
         this.dialogRef.close();
     }
 
-    isFormValid() {
-        return this.form.valid;
-    }
-
     onNoClick(): void {
         this.dialogRef.close();
+    }
+
+    isFormValid(): boolean {
+        let isValid = false;
+
+        if (this.isNew || this.passwordRequired) {
+            if (this.userForm.valid && !this.passwordDismatch) {
+                isValid = true;
+            }
+        }
+
+        if (!this.passwordRequired && this.userForm.valid) {
+            isValid = true;
+        }
+
+        return isValid;
     }
 }

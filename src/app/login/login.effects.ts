@@ -14,12 +14,13 @@ export class LoginEffects {
     @Effect() userLogin$ = this.actions$.pipe(
         ofType<loginActions.UserLoginAction>(loginActions.LoginActionTypes.USER_LOGIN),
         map(action => action.payload),
-        switchMap((sport) => {
-            return this.loginService.userLogin(sport).pipe(
+        switchMap((user) => {
+            return this.loginService.userLogin(user).pipe(
                 map((response: any) => {
                     if (response.message === 'success') {
 
-                        localStorage.setItem('appthletics_token', response.data);
+                        localStorage.setItem('appthletics_token', response.data.token);
+                        localStorage.setItem('appthletics_user', response.data.user._id);
                         return new loginActions.LoginSuccess();
                     } else {
                         return new loginActions.LoginFailed(true);
@@ -35,7 +36,9 @@ export class LoginEffects {
     @Effect({ dispatch: false })
     loginSuccess$ = this.actions$.pipe(
      ofType(loginActions.LoginActionTypes.LOGIN_SUCCESS),
-     tap(() => this.router.navigate(['/']))
+     tap(() => {
+         this.router.navigate(['/']);
+        })
    );
 
    @Effect({ dispatch: false })

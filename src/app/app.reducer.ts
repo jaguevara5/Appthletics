@@ -35,6 +35,11 @@ export const selectAuthFailed = createSelector(
     (state: fromLogin.LoginState) => state.authFailed
 );
 
+export const selectCurrentUser = createSelector(
+    selectLogin,
+    (state: fromLogin.LoginState) => state.currentUser
+);
+
 export const selectSportsList = createSelector(
     selectSport,
     (state: fromSports.SportsState) => state.sports

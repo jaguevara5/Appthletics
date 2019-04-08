@@ -33,7 +33,7 @@ router.post('/login', (req, res, next) => {
         );
         res.status(200).json({
             message: 'success',
-            data: token
+            data: { token: token, user: fetchedUser }
         });
     })
     .catch(err => {

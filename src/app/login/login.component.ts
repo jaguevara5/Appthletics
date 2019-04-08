@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     const user: User = {
-      username: this.userForm.get('userName').value,
+      username: this.userForm.get('userName').value.toLowerCase(),
       password: this.userForm.get('password').value
     };
     this.store.dispatch(new UserLoginAction(user));

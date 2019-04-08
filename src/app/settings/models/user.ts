@@ -3,6 +3,8 @@ export interface User {
     lastname?: string;
     username?: string;
     password?: string;
-    comfirmPassword?: string;
+    confirmPassword?: string;
     userId?: number;
+    id?: string;
+    updatePassword?: boolean;
 }

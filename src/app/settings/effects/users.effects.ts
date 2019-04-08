@@ -4,8 +4,7 @@ import * as usersActions from '../actions/users.actions';
 import * as uiActions from '../../shared/ui.actions';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { SportsState } from '../reducers/sports.reducer';
-import { Sport, ToastrType } from 'src/app/models/models';
+import { ToastrType } from 'src/app/models/models';
 import { of } from 'rxjs';
 import { UsersService } from '../services/users.service';
 import { AppState } from 'src/app/app.reducer';
@@ -21,6 +20,7 @@ export class UsersEffects {
                     if (response.message === 'success') {
                         const users = response.data.map(user => {
                             return {
+                                id: user._id,
                                 userId: user.userId,
                                 name: user.name,
                                 lastname: user.lastname,
@@ -77,7 +77,68 @@ export class UsersEffects {
         })
     );
 
-    @Effect() sportsSuccess$ = this.actions$.pipe(
+    @Effect() deleteUser$ = this.actions$.pipe(
+        ofType<usersActions.DeleteUsers>(usersActions.UsersActionTypes.DELETE_USERS),
+        map(action => action.payload),
+        switchMap((users) => {
+            return this.usersService.deleteUsers(users).pipe(
+                map((response: any) => {
+                    if (response.message === 'success') {
+
+                        this.store.dispatch(new usersActions.UsersSuccess({
+                            title: 'Delete Users',
+                            message: 'Users deleted successfully'
+                        }));
+                        return new usersActions.LoadUsers();
+                    } else {
+                        return new usersActions.UsersError({
+                            title: 'Users - Delete Users',
+                            message: 'Error while deleting users...'
+                        });
+                    }
+                }),
+                catchError(err => {
+                    return of(new usersActions.UsersError({
+                        title: 'Users - Delete Users',
+                        message: err.message
+                    }));
+                })
+            );
+        })
+    );
+
+    @Effect() updateUser$ = this.actions$.pipe(
+        ofType<usersActions.UpdateUser>(usersActions.UsersActionTypes.UPDATE_USER),
+        map(action => action.payload),
+        switchMap((user) => {
+            return this.usersService.updateUser(user).pipe(
+                map((response: any) => {
+                    if (response.message === 'success') {
+
+                        this.store.dispatch(new usersActions.UsersSuccess({
+                            title: 'Update Sport',
+                            message: 'Sport updated successfully'
+                        }));
+
+                        return new usersActions.LoadUsers();
+                    } else {
+                        return new usersActions.UsersError({
+                            title: 'Users - Update User',
+                            message: 'Error while updating user..'
+                        });
+                    }
+                }),
+                catchError(err => {
+                    return of(new usersActions.UsersError({
+                        title: 'Users - Update User',
+                        message: err.message
+                    }));
+                })
+            );
+        })
+    );
+
+    @Effect() usersSuccess$ = this.actions$.pipe(
         ofType<usersActions.UsersSuccess>(usersActions.UsersActionTypes.USERS_SUCCESS),
         map((action: usersActions.UsersSuccess) => {
             return new uiActions.ShowToastr(({
@@ -88,7 +149,7 @@ export class UsersEffects {
         })
     );
 
-    @Effect() sportsError$ = this.actions$.pipe(
+    @Effect() usersError$ = this.actions$.pipe(
         ofType<usersActions.UsersError>(usersActions.UsersActionTypes.USERS_ERROR),
         map((action: usersActions.UsersError) => {
             return new uiActions.ShowToastr(({

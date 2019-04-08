@@ -26,7 +26,6 @@ router.post('/new', (req, res, next) => {
             userId: req.body.userId,
             password: hash
         });
-        console.log(user);
         user.save()
         .then(result => {
             res.status(201).json({
@@ -37,6 +36,35 @@ router.post('/new', (req, res, next) => {
         .catch(err => {
             res.status(500).json({
                 error: err
+            });
+        });
+    });
+});
+
+router.post('/delete', (req, res, next) => {
+    User.deleteMany({ _id: {$in: req.body.users }})
+    .then(() => {
+        res.status(200).json({
+            message: 'success'
+        });
+    });
+});
+
+router.put('/:id', (req, res, next) => {
+    bcrypt.hash(req.body.password, 10)
+    .then(hash => {
+        const user = new User({
+            _id: req.body.id,
+            username: req.body.username,
+            name: req.body.name,
+            lastname: req.body.lastname,
+            password: hash,
+            userId: req.body.userId,
+        });
+        User.updateOne({ _id: req.params.id }, user)
+        .then(() => {
+            res.status(200).json({
+                message: 'success'
             });
         });
     });
