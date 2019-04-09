@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const sportsRoutes = require('./routes/sports');
 const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -35,6 +35,6 @@ app.use((req, res, next) => {
 
 app.use('/api/sports', sportsRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/users', userRoutes);
 
 module.exports = app;

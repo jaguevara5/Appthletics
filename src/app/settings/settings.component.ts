@@ -18,4 +18,8 @@ export class SettingsComponent implements OnInit {
   goToSports() {
     this.router.navigate(['/settings/sports']);
   }
+
+  goToUsers() {
+    this.router.navigate(['/settings/users']);
+  }
 }

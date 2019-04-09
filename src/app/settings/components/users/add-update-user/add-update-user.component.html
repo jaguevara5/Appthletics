@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm" (ngSubmit)="submit()" (keydown.enter)="$event.preventDefault()">
+    <label>
+      User Id
+      <input type="text" formControlName="userId" placeholder="User Id">
+    </label>
+    <label>
+      Name
+      <input type="text" formControlName="name" placeholder="Name">
+    </label>
+    <label>
+      Lastname
+      <input type="text" formControlName="lastname" placeholder="Lastname">
+    </label>
+    <label>
+      Usename
+      <input type="text" formControlName="username" placeholder="Username">
+    </label>
+    <label *ngIf="!isNew">
+        Update Password
+        <input type="checkbox" formControlName="updatePassword">
+      </label>
+    <label *ngIf="isNew || passwordRequired">
+      Password
+    <input type="password" formControlName="password" placeholder="Password">
+    </label>
+    <label *ngIf="isNew || passwordRequired">
+      Confirm Password
+      <input type="password" formControlName="confirmPassword" placeholder="Confirm Password">
+    </label>
+    <p *ngIf="passwordDismatch" class="warning-text">Passwords must match!</p>
+    <div class="row">
+      <div class="mr-1">
+        <button type="button" class="btn btn-default" (click)="onNoClick()">Cancel</button>
+      </div>
+      <div class="mr-1">
+        <button type="submit" class="btn btn-default" [disabled]="!isFormValid()">Save</button>
+      </div>
+    </div>
+  </form>
+</div>

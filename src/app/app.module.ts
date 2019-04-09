@@ -28,6 +28,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './login/auth-interceptor';
 import { AuthGuardService } from './login/auth-guard.service';
 import { JwtModule } from '@auth0/angular-jwt';
+import { UsersEffects } from './settings/effects/users.effects';
 
 export function tokenGetter() {
   return localStorage.getItem('appthletics_token');
@@ -50,7 +51,8 @@ export function tokenGetter() {
     EffectsModule.forRoot([
       SportsEffects,
       UIEffects,
-      LoginEffects
+      LoginEffects,
+      UsersEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

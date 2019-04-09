@@ -27,13 +27,13 @@ router.post('/login', (req, res, next) => {
             });
         }
         const token = jwt.sign(
-            { username: fetchedUser.username, userid: fetchedUser.userid }, 
+            { username: fetchedUser.username, userId: fetchedUser.userId }, 
             privateKEY, 
             { expiresIn: '1h' }
         );
         res.status(200).json({
             message: 'success',
-            data: token
+            data: { token: token, user: fetchedUser }
         });
     })
     .catch(err => {

@@ -10,6 +10,7 @@ import {
 } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog
         MatButtonModule,
         MatSortModule,
         MatDialogModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        ReactiveFormsModule
     ],
     exports: [
         CommonModule,
