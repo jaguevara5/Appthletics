@@ -103,14 +103,16 @@ export class AddUpdateUserComponent implements OnInit {
             this.store.dispatch(new CreateUser(this.model));
         } else {
             if (this.passwordRequired) {
-            const passwordConfirmed = this.model.password === this.model.confirmPassword;
-            if (passwordConfirmed) {
-                this.passwordDismatch = false;
+                const passwordConfirmed = this.model.password === this.model.confirmPassword;
+                if (passwordConfirmed) {
+                    this.passwordDismatch = false;
+                } else {
+                    this.passwordDismatch = true;
+                    return;
+                }
+                this.store.dispatch(new UpdateUser(this.model));
             } else {
-                this.passwordDismatch = true;
-                return;
-            }
-            this.store.dispatch(new UpdateUser(this.model));
+                this.store.dispatch(new UpdateUser(this.model));
             }
         }
         this.dialogRef.close();

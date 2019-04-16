@@ -51,14 +51,30 @@ router.post('/delete', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-    .then(hash => {
+    if(req.body.password) {
+        bcrypt.hash(req.body.password, 10)
+        .then(hash => {
+            const user = new User({
+                _id: req.body.id,
+                username: req.body.username,
+                name: req.body.name,
+                lastname: req.body.lastname,
+                password: hash,
+                userId: req.body.userId,
+            });
+            User.updateOne({ _id: req.params.id }, user)
+            .then(() => {
+                res.status(200).json({
+                    message: 'success'
+                });
+            });
+        });
+    } else {
         const user = new User({
             _id: req.body.id,
             username: req.body.username,
             name: req.body.name,
             lastname: req.body.lastname,
-            password: hash,
             userId: req.body.userId,
         });
         User.updateOne({ _id: req.params.id }, user)
@@ -67,7 +83,7 @@ router.put('/:id', (req, res, next) => {
                 message: 'success'
             });
         });
-    });
+    }
 });
 
 module.exports = router;
