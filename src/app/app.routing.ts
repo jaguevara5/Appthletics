@@ -1,6 +1,5 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SportsComponent } from './settings/components/sports/sports.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { dashBoardRoutes } from './dashboard/dashboard.routes';
@@ -13,11 +12,6 @@ const appRoutes: Routes = [
         children: dashBoardRoutes,
         canActivate: [AuthGuard]
 
-    },
-    {
-        path: 'settings/sports',
-        component: SportsComponent,
-        canActivate: [AuthGuard]
     },
     {
         path: 'login',

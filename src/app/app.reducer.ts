@@ -4,31 +4,36 @@ import * as fromUI from './shared/ui.reducer';
 import * as fromLogin from './login/login.reducer';
 import * as fromSports from './settings/reducers/sports.reducer';
 import * as fromUsers from './settings/reducers/users.reducer';
+import * as fromStadiums from './settings/reducers/stadiums.reducer';
 
 export interface AppState {
     ui: fromUI.UiState;
     login: fromLogin.LoginState;
     users: fromUsers.UsersState;
     sports:  fromSports.SportsState;
+    stadiums: fromStadiums.StadiumsState;
 }
 
 export const initialAppState: AppState = {
     ui: fromUI.uiInitialUIState,
     login: fromLogin.loginInitialState,
     users: fromUsers.usersInitialState,
-    sports: fromSports.sportsInitialState
+    sports: fromSports.sportsInitialState,
+    stadiums: fromStadiums.stadiumsInitialState
 };
 
 export const appReducers: ActionReducerMap<AppState, any> = {
     ui: fromUI.uiReducer,
     login: fromLogin.loginReducer,
     users: fromUsers.usersReducer,
-    sports: fromSports.sportsReducer
+    sports: fromSports.sportsReducer,
+    stadiums: fromStadiums.stadiumsReducer
 };
 
 export const selectLogin = (state: AppState) => state.login;
 export const selectSport = (state: AppState) => state.sports;
 export const selectUser = (state: AppState) => state.users;
+export const selectStadium = (state: AppState) => state.stadiums;
 
 export const selectAuthFailed = createSelector(
     selectLogin,
@@ -48,4 +53,9 @@ export const selectSportsList = createSelector(
 export const selectUsersList = createSelector(
     selectUser,
     (state: fromUsers.UsersState) => state.users
+);
+
+export const selectStadiumsList = createSelector(
+    selectStadium,
+    (state: fromStadiums.StadiumsState) => state.stadiums
 );

@@ -3,6 +3,12 @@ export interface Sport {
     name: string;
 }
 
+export interface Stadium {
+    id?: string;
+    name: string;
+    address: string;
+}
+
 export enum ToastrType {
     error,
     success

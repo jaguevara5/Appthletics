@@ -3,9 +3,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 
-const sportsRoutes = require('./routes/sports');
+const sportRoutes = require('./routes/sports');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
+const stadiumRoutes = require('./routes/stadiums');
 
 const app = express();
 
@@ -33,8 +34,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/sports', sportsRoutes);
+app.use('/api/sports', sportRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/stadiums', stadiumRoutes);
 
 module.exports = app;

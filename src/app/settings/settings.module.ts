@@ -13,10 +13,13 @@ import { AddUpdateSportComponent } from './components/sports/add-update-sport/ad
 import { SportsComponent } from './components/sports/sports.component';
 import { UsersComponent } from './components/users/users.component';
 import { AddUpdateUserComponent } from './components/users/add-update-user/add-update-user.component';
+import { StadiumsComponent } from './components/stadiums/stadiums.component';
+import { AddUpdateStadiumComponent } from './components/stadiums/add-update-stadium/add-update-stadium.component';
 
 // Services
 import { SportsService } from './services/sports.service';
 import { UsersService } from './services/users.service';
+import { StadiumsService } from './services/stadiums.service';
 
 
 
@@ -26,7 +29,9 @@ import { UsersService } from './services/users.service';
         SettingsComponent,
         AddUpdateSportComponent,
         UsersComponent,
-        AddUpdateUserComponent
+        AddUpdateUserComponent,
+        StadiumsComponent,
+        AddUpdateStadiumComponent
     ],
     imports: [
         HttpClientModule,
@@ -37,12 +42,14 @@ import { UsersService } from './services/users.service';
     ],
     providers: [
         SportsService,
-        UsersService
+        UsersService,
+        StadiumsService
     ],
     entryComponents: [
         SportsComponent,
         AddUpdateSportComponent,
-        AddUpdateUserComponent
+        AddUpdateUserComponent,
+        AddUpdateStadiumComponent
     ],
   })
   export class SettingsModule { }

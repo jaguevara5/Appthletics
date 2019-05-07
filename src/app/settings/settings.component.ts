@@ -22,4 +22,8 @@ export class SettingsComponent implements OnInit {
   goToUsers() {
     this.router.navigate(['/settings/users']);
   }
+
+  goToStadiums() {
+    this.router.navigate(['/settings/stadiums']);
+  }
 }
