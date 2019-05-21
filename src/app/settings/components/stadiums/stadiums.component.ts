@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from 'src/app/shared/components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
-import { LoadStadiums } from '../../actions/stadiums.actions';
+import { LoadStadiums, DeleteStadiums } from '../../actions/stadiums.actions';
 import { AddUpdateStadiumComponent } from './add-update-stadium/add-update-stadium.component';
 
 
@@ -96,18 +96,18 @@ export class StadiumsComponent implements OnInit, OnDestroy {
     }
 
     removeSelectedStadiums() {
-    //   this.dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
-    //     disableClose: false
-    //   });
-    //   this.dialogRef.componentInstance.confirmMessage =
-    //     `Are you sure you want to delete ${this.selectedItems.length} item(s)?`;
+      this.dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+        disableClose: false
+      });
+      this.dialogRef.componentInstance.confirmMessage =
+        `Are you sure you want to delete ${this.selectedItems.length} item(s)?`;
 
-    //   this.dialogRef.afterClosed().subscribe(result => {
-    //     if (result) {
-    //       this.store.dispatch(new DeleteStadiums(this.selectedItems));
-    //     }
-    //     this.dialogRef = null;
-    //   });
+      this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.store.dispatch(new DeleteStadiums(this.selectedItems));
+        }
+        this.dialogRef = null;
+      });
     }
 
     cancel() {

@@ -43,35 +43,35 @@ export class StadiumsEffects {
         })
     );
 
-    // @Effect() deleteSport$ = this.actions$.pipe(
-    //     ofType<sportsActions.DeleteSports>(sportsActions.SportsActionTypes.DELETE_SPORTS),
-    //     map(action => action.payload),
-    //     switchMap((sports) => {
-    //         return this.sportsService.deleteSports(sports).pipe(
-    //             map((response: any) => {
-    //                 if (response.message === 'success') {
+    @Effect() deleteStadium$ = this.actions$.pipe(
+        ofType<stadiumsActions.DeleteStadiums>(stadiumsActions.StadiumsActionTypes.DELETE_STADIUMS),
+        map(action => action.payload),
+        switchMap((stadiums) => {
+            return this.stadiumsService.deleteStadiums(stadiums).pipe(
+                map((response: any) => {
+                    if (response.message === 'success') {
 
-    //                     this.store.dispatch(new sportsActions.SportsSuccess({
-    //                         title: 'Delete Sports',
-    //                         message: 'Sport(s) deleted successfully'
-    //                     }));
-    //                     return new sportsActions.LoadSports();
-    //                 } else {
-    //                     return new sportsActions.SportsError({
-    //                         title: 'Sports - Delete Sports',
-    //                         message: 'Error while deleting sports...'
-    //                     });
-    //                 }
-    //             }),
-    //             catchError(err => {
-    //                 return of(new sportsActions.SportsError({
-    //                     title: 'Sports - Delete Sports',
-    //                     message: err.message
-    //                 }));
-    //             })
-    //         );
-    //     })
-    // );
+                        this.store.dispatch(new stadiumsActions.StadiumsSuccess({
+                            title: 'Delete Stadiums',
+                            message: 'Stadium(s) deleted successfully'
+                        }));
+                        return new stadiumsActions.LoadStadiums();
+                    } else {
+                        return new stadiumsActions.StadiumsError({
+                            title: 'Stadiums - Delete Stadiums',
+                            message: 'Error while deleting stadiums...'
+                        });
+                    }
+                }),
+                catchError(err => {
+                    return of(new stadiumsActions.StadiumsError({
+                        title: 'Stadiums - Delete Stadiums',
+                        message: err.message
+                    }));
+                })
+            );
+        })
+    );
 
     @Effect() updateStadium$ = this.actions$.pipe(
         ofType<stadiumsActions.UpdateStadium>(stadiumsActions.StadiumsActionTypes.UPDATE_STADIUM),
