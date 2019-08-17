@@ -11,10 +11,12 @@ import {
 import { NgModule } from '@angular/core';
 import { ConfirmDeleteDialogComponent } from './components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
     declarations: [
-        ConfirmDeleteDialogComponent
+        ConfirmDeleteDialogComponent,
+        SpinnerComponent
     ],
     imports: [
         CommonModule,
@@ -35,7 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatCardModule,
         MatDialogModule,
         ConfirmDeleteDialogComponent,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        SpinnerComponent
     ],
     entryComponents: [ConfirmDeleteDialogComponent],
 })

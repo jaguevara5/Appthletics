@@ -26,4 +26,8 @@ export class SettingsComponent implements OnInit {
   goToStadiums() {
     this.router.navigate(['/settings/stadiums']);
   }
+
+  goToDistricts() {
+    this.router.navigate(['/settings/districts']);
+  }
 }

@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 // Modules
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 // Components
 import { SettingsComponent } from './settings.component';
@@ -20,6 +21,10 @@ import { AddUpdateStadiumComponent } from './components/stadiums/add-update-stad
 import { SportsService } from './services/sports.service';
 import { UsersService } from './services/users.service';
 import { StadiumsService } from './services/stadiums.service';
+import { DistrictsComponent } from './components/districts/districts.component';
+import { DistrictsService } from './services/districts.service';
+import { DistrictsListComponent } from './components/districts/districts-list/districts-list.component';
+import { AddUpdateDistrictComponent } from './components/districts/add-update-district/add-update-district.component';
 
 
 
@@ -31,19 +36,25 @@ import { StadiumsService } from './services/stadiums.service';
         UsersComponent,
         AddUpdateUserComponent,
         StadiumsComponent,
-        AddUpdateStadiumComponent
+        AddUpdateStadiumComponent,
+        DistrictsComponent,
+        DistrictsListComponent,
+        AddUpdateDistrictComponent
     ],
     imports: [
         HttpClientModule,
+        FormsModule,
         SharedModule,
         ReactiveFormsModule,
         FormlyModule.forRoot(),
-        FormlyMaterialModule
+        FormlyMaterialModule,
+        ModalModule.forRoot()
     ],
     providers: [
         SportsService,
         UsersService,
-        StadiumsService
+        StadiumsService,
+        DistrictsService
     ],
     entryComponents: [
         SportsComponent,

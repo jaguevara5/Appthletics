@@ -3,6 +3,11 @@ export interface Sport {
     name: string;
 }
 
+export interface District {
+    id?: string;
+    name: string;
+}
+
 export interface Stadium {
     id?: string;
     name: string;

@@ -4,10 +4,65 @@
     padding: 0 20px;
 }
 
+.page-content {
+    margin-top: 20px;
+}
+
+h1, h2, h3, h4 {
+    color: #404852;
+}
+
 .action-buttons {
     justify-content: flex-end;
 }
 
+.card .card-body {
+    padding: 1.88rem 0;
+}
+
+.list-header {
+    padding: 10px 1.88rem;
+}
+
+.row-content {
+    cursor: pointer;
+    width: 90%;
+}
+
+.btn-trash i {
+    margin: 0;
+}
+
+.btn-trash {
+    color: #e65251;
+}
+
+.create-btn-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-bottom: 10px;
+}
+
+.create-btn-wrapper i {
+    color: #00ce68;
+}
+
+.list-row {
+    border-bottom: 1px solid #ececec;
+    padding: 10px 1.88rem;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+.list-row:hover { 
+    background-color: #ececec;
+  }
+
 mat-spinner {
     margin: 0 auto;
+}
+
+label {
+    margin-right: 10px;
 }
