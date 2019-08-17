@@ -5,6 +5,7 @@ import { AuthGuardService as AuthGuard } from '../login/auth-guard.service';
 import { UsersComponent } from '../settings/components/users/users.component';
 import { StadiumsComponent } from '../settings/components/stadiums/stadiums.component';
 import { DistrictsComponent } from '../settings/components/districts/districts.component';
+import { SchoolsComponent } from '../settings/components/schools/schools.component';
 
 export const dashBoardRoutes: Routes = [
     {
@@ -30,6 +31,11 @@ export const dashBoardRoutes: Routes = [
     {
         path: 'settings/districts',
         component: DistrictsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'settings/schools',
+        component: SchoolsComponent,
         canActivate: [AuthGuard]
     }
 ];

@@ -18,3 +18,9 @@ export enum ToastrType {
     error,
     success
 }
+
+export interface School {
+    id?: string;
+    name: string;
+    address: string;
+}

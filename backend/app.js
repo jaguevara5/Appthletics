@@ -9,6 +9,8 @@ const userRoutes = require('./routes/users');
 const stadiumRoutes = require('./routes/stadiums');
 const districtRoutes = require('./routes/districts');
 const teamRoutes = require('./routes/teams');
+const categoriesRoutes = require('./routes/categories');
+const schoolsRoutes = require('./routes/schools');
 
 const app = express();
 
@@ -42,5 +44,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/stadiums', stadiumRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/districts', districtRoutes);
+app.use('/api/categories', categoriesRoutes);
+app.use('/api/schools', schoolsRoutes);
 
 module.exports = app;

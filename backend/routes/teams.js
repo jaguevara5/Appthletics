@@ -6,13 +6,12 @@ const checkAuth = require('../middleware/check-auth');
 const router = express.Router();
 
 router.post('', checkAuth, (req, res, next) => {
-    console.log('posting...');
-    console.log(req.body);
     const post = new Team({
         name: req.body.name,
         district: req.body.district,
         sport: req.body.sport,
-        school: req.body.school
+        school: req.body.school,
+        category: req.body.category
     });
     post.save().then(createdTeam => {
         res.status(201).json({

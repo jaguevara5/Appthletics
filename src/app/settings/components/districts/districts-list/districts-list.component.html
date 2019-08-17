@@ -8,15 +8,17 @@
 
         <div class="card-body">
 
-            <div class="card-title list-header">Name</div>
-                    <!-- <tr *ngFor="let district of districts">
-                        <td class="card-text">{{district.name}}</td>
-                    </tr> -->
+            <div class="list-header-row">
+                <div class="card-title list-header">Name</div>
+                <div class="trash-header">
+                    <button class="btn btn-trash" (click)="delete(school)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+            </div>
             <div *ngFor="let district of districts" class="list-row">
                 <div class="card-text row-content" (click)="onClickRow(district)">
                     <div>{{district.name}}</div>
                 </div>
-                <div class="trash-col">
+                <div>
                     <button class="btn btn-trash" (click)="delete(district)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </div>
             </div>

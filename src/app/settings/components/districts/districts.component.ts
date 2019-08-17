@@ -1,9 +1,8 @@
-import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { District } from 'src/app/models/models';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
-import { Router } from '@angular/router';
 import { LoadDistricts, UpdateDistrict, AddDistrict, DeleteDistrict } from '../../actions/districts.actions';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 

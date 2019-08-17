@@ -1,24 +1,25 @@
 const express = require('express');
 
-const District = require('../models/district');
+const School = require('../models/school');
 const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
 router.post('', checkAuth, (req, res, next) => {
-    const post = new District({
-        name: req.body.name
+    const post = new School({
+        name: req.body.name,
+        address: req.body.address
     });
-    post.save().then(createdDistrict => {
+    post.save().then(createdSchool => {
         res.status(201).json({
             message: 'success',
-            districtId: createdDistrict._id
+            schoolId: createdSchool._id
         });
     });
 });
 
 router.get('', checkAuth, (req, res, next) => {
-    District.find()
+    School.find()
     .then((documents) => {
         res.status(200).json({
             message: 'success',
@@ -28,8 +29,7 @@ router.get('', checkAuth, (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-    console.log('Deleteing...', req.params.id);
-    District.deleteOne({ _id: req.params.id })
+    School.deleteOne({ _id: req.params.id })
     .then(() => {
         res.status(200).json({
             message: 'success'
@@ -38,11 +38,12 @@ router.delete('/:id', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-    const district = new District({
+    const school = new School({
         _id: req.body.id,
         name: req.body.name,
+        address: req.body.address
     });
-    District.updateOne({ _id: req.params.id }, district)
+    School.updateOne({ _id: req.params.id }, school)
     .then(() => {
         res.status(200).json({
             message: 'success'

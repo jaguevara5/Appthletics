@@ -31,6 +31,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { UsersEffects } from './settings/effects/users.effects';
 import { StadiumsEffects } from './settings/effects/stadiums.effects';
 import { DistrictsEffects } from './settings/effects/districts.effects';
+import { SchoolsEffects } from './settings/effects/schools.effects';
 
 export function tokenGetter() {
   return localStorage.getItem('appthletics_token');
@@ -56,7 +57,8 @@ export function tokenGetter() {
       LoginEffects,
       UsersEffects,
       StadiumsEffects,
-      DistrictsEffects
+      DistrictsEffects,
+      SchoolsEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

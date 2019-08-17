@@ -1,0 +1,31 @@
+<h2>Schools</h2>
+<div class="page-content">
+
+    <div class="create-btn-wrapper">
+        <button class="btn btn-default" (click)="addNewSchool()"><i class="fa fa-plus" aria-hidden="true"></i>Add New</button>
+    </div>
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="list-header-row">
+                <div class="card-title list-header">Name</div>
+                <div class="card-title list-header">Address</div>
+                <div class="trash-header">
+                    <button class="btn btn-trash" (click)="delete(school)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div *ngFor="let school of schools" class="list-row">
+                <div class="card-text row-content" (click)="onClickRow(school)">
+                    <div>{{school.name}}</div>
+                </div>
+                <div class="card-text row-content" (click)="onClickRow(school)">
+                    <div>{{school.address}}</div>
+                </div>
+                <div>
+                    <button class="btn btn-trash" (click)="delete(school)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
-import { Component, Input, TemplateRef, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { District } from 'src/app/models/models';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-districts-list',
