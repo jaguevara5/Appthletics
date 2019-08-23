@@ -18,12 +18,7 @@ export class SportsEffects {
             return this.sportsService.getSports().pipe(
                 map((response) => {
                     if (response.message === 'success') {
-                        const sports = response.data.map(sport => {
-                            return {
-                                id: sport._id,
-                                name: sport.name
-                            };
-                        });
+                        const sports = response.data;
                         return new sportsActions.SportsLoaded(sports);
                     } else {
                         return new sportsActions.SportsError({

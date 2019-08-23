@@ -18,7 +18,7 @@ export class StadiumsService {
     }
 
     updateStadium(stadium: Stadium) {
-        return this.http.put<{message: string}>('http://localhost:3000/api/stadiums/' + stadium.id, stadium);
+        return this.http.put<{message: string}>('http://localhost:3000/api/stadiums/' + stadium._id, stadium);
     }
 
     deleteStadiums(stadiums: string[]) {

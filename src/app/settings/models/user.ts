@@ -5,6 +5,6 @@ export interface User {
     password?: string;
     confirmPassword?: string;
     userId?: number;
-    id?: string;
+    _id?: string;
     updatePassword?: boolean;
 }

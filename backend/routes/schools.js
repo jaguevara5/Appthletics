@@ -38,16 +38,28 @@ router.delete('/:id', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-    const school = new School({
-        _id: req.body.id,
-        name: req.body.name,
-        address: req.body.address
-    });
-    School.updateOne({ _id: req.params.id }, school)
-    .then(() => {
-        res.status(200).json({
-            message: 'success'
-        });
+    School.findOne({_id: req.params.id}, (err, foundSchool) => {
+        if(err) {
+            res.status(500).send();
+        } else {
+            if(!foundSchool) {
+                res.status(404).send();
+            } else {
+                foundSchool.name = req.body.name;
+                foundSchool.address = req.body.address;
+
+                foundSchool.save((err, updatedSchool) => {
+                    if(err) {
+                        res.status(500).send();
+                    } else {
+                        res.status(200).json({
+                            message: 'success',
+                            data: updatedSchool
+                        });
+                    }
+                });
+            }
+        }
     });
 });
 

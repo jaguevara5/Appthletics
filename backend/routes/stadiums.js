@@ -38,16 +38,28 @@ router.post('/delete', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-    const stadium = new Stadium({
-        _id: req.body.id,
-        name: req.body.name,
-        address: req.body.address
-    });
-    Stadium.updateOne({ _id: req.params.id }, stadium)
-    .then(() => {
-        res.status(200).json({
-            message: 'success'
-        });
+
+    Stadium.findOne({_id: req.params.id}, (err, foundStadium) => {
+        if(err) {
+            res.status(500).send();
+        } else {
+            if(!foundStadium) {
+                res.status(404).send();
+            } else {
+                foundStadium.name = req.body.name;
+
+                foundStadium.save((err, updatedStadium) => {
+                    if(err) {
+                        res.status(500).send();
+                    } else {
+                        res.status(200).json({
+                            message: 'success',
+                            data: updatedStadium
+                        });
+                    }
+                });
+            }
+        }
     });
 });
 

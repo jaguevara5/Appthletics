@@ -68,7 +68,7 @@ export class UsersComponent implements OnInit, OnDestroy {
                 name: item.name,
                 lastname: item.lastname,
                 username: item.username,
-                id: item.id,
+                _id: item._id,
                 password: item.password
             }
         });
@@ -112,9 +112,9 @@ export class UsersComponent implements OnInit, OnDestroy {
             this.selection.clear();
         } else {
             this.usersList.data.forEach(row => {
-                if (row.id !== this.currentUser) {
+                if (row._id !== this.currentUser) {
                     this.selection.select(row);
-                    this.selectedItems.push(row.id);
+                    this.selectedItems.push(row._id);
                 }
             });
         }
@@ -122,14 +122,14 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     rowClicked(item: User, wasChecked: boolean) {
 
-        if (item.id === this.currentUser) {
+        if (item._id === this.currentUser) {
             return;
         }
 
         if (wasChecked) {
-            this.selectedItems = this.selectedItems.filter(id => item.id !== id);
+            this.selectedItems = this.selectedItems.filter(id => item._id !== id);
         } else {
-            this.selectedItems.push(item.id);
+            this.selectedItems.push(item._id);
         }
     }
 

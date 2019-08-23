@@ -31,10 +31,10 @@ import { UpdateStadium, AddStadium } from '../../../actions/stadiums.actions';
 
     ngOnInit() {
 
-      if (this.data.id) {
+      if (this.data._id) {
         this.isNew = false;
         this.title = 'Update Stadium';
-        this.model.id = this.data.id;
+        this.model._id = this.data._id;
         this.model.name = this.data.name;
         this.model.address = this.data.address;
       } else {

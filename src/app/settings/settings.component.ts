@@ -34,4 +34,8 @@ export class SettingsComponent implements OnInit {
   goToSchools() {
     this.router.navigate(['/settings/schools']);
   }
+
+  goToTeams() {
+    this.router.navigate(['/settings/teams']);
+  }
 }

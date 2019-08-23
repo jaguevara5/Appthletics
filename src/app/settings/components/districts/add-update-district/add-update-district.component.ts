@@ -12,11 +12,7 @@ export class AddUpdateDistrictComponent {
 
     isEditMode = false;
     wasInside = false;
-
-    ngOnInit() {
-        console.log(this.district);
-    }
-
+    
     cancel() {
         this.closeModal.emit();
     }

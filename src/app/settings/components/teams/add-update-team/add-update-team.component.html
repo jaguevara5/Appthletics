@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Team</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body card-text">
+    <div>
+        <label>Name: </label>
+        <input type="text" class="form-control" class="card-text" [(ngModel)]="team.name">
+    </div>
+    <div>
+        <label>School:</label>
+        <select [(ngModel)]="team.school._id">
+            <option *ngFor="let school of schools" [ngValue]="school._id">{{school.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label>Sport:</label>
+        <select [(ngModel)]="team.sport._id">
+            <option *ngFor="let sport of sports" [ngValue]="sport._id">{{sport.name}}</option>
+        </select>
+    </div>
+
+    <div>
+        <label>District:</label>
+        <select [(ngModel)]="team.district._id">
+            <option *ngFor="let district of districts" [ngValue]="district._id">{{district.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label>Category:</label>
+        <select [(ngModel)]="team.category._id">
+            <option *ngFor="let category of categories" [ngValue]="category._id">{{category.name}}</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="mr-1">
+            <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+        </div>
+        <div class="mr-1">
+            <button type="submit" class="btn btn-default" (click)="save()">Save</button>
+        </div>
+    </div>
+</div>

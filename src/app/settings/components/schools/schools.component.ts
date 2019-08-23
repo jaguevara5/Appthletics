@@ -37,7 +37,7 @@ export class SchoolsComponent implements OnInit {
 
     saveSchool($event: School) {
         this.modalRef.hide();
-        if ($event.id) {
+        if ($event._id) {
             this.store.dispatch(new UpdateSchool($event));
         } else {
             this.store.dispatch(new AddSchool($event));
@@ -51,6 +51,6 @@ export class SchoolsComponent implements OnInit {
 
     deleteConfirmed() {
         this.modalRef.hide();
-        this.store.dispatch(new DeleteSchool(this.selectedSchool.id));
+        this.store.dispatch(new DeleteSchool(this.selectedSchool._id));
     }
 }

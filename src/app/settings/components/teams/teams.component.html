@@ -1,0 +1,43 @@
+<div *ngIf="(teams$ | async) as teams; else loading">
+    <app-teams-list
+        [teams]=teams
+        (addUpdateTeam)=addUpdateTeam($event)
+        (deleteTeam)="deleteTeam($event)"></app-teams-list>
+</div>
+<ng-template #loading>
+    <app-spinner></app-spinner>
+</ng-template>
+
+<ng-template #editTemplate>
+    <div *ngIf="(allData$ | async) as data; else loading">
+        <app-add-update-team
+            [team]="selectedTeam"
+            [schools]=data[0]
+            [districts]=data[1]
+            [sports]=data[2]
+            [categories]=data[3]
+            (closeModal)="modalRef.hide()"
+            (saveTeam)="saveTeam($event)">
+        </app-add-update-team>
+    </div>
+</ng-template>
+
+<ng-template #deleteTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Team</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>Are you sure you want to delete {{selectedTeam.name}}?</div>
+        <div class="row">
+            <div class="mr-1">
+                <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cancel</button>
+            </div>
+            <div class="mr-1">
+                <button type="submit" class="btn btn-default" (click)="deleteConfirmed()">Delete</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

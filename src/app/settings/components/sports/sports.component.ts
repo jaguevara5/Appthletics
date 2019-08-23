@@ -71,23 +71,23 @@ export class SportsComponent implements OnInit, OnDestroy {
     } else {
       this.sportsList.data.forEach(row => {
         this.selection.select(row);
-        this.selectedItems.push(row.id);
+        this.selectedItems.push(row._id);
       });
     }
   }
 
   rowClicked(item: Sport, wasChecked: boolean) {
     if (wasChecked) {
-      this.selectedItems = this.selectedItems.filter(id => item.id !== id);
+      this.selectedItems = this.selectedItems.filter(id => item._id !== id);
     } else {
-      this.selectedItems.push(item.id);
+      this.selectedItems.push(item._id);
     }
   }
 
   editSport(item: Sport) {
     this.dialog.open(AddUpdateSportComponent, {
       data: {
-        id: item.id,
+        _id: item._id,
         name: item.name
       }
     });

@@ -16,10 +16,6 @@ export class SchoolsListComponent {
 
     constructor() {}
 
-    ngOnInit() {
-        console.log(this.schools);
-    }
-
     addNewSchool() {
         const school = {} as School;
         school.name = '';

@@ -18,7 +18,7 @@ export class SchoolsService {
     }
 
     updateSchool(school: School) {
-        return this.http.put<{message: string}>('http://localhost:3000/api/schools/' + school.id, school);
+        return this.http.put<{message: string}>('http://localhost:3000/api/schools/' + school._id, school);
     }
 
     deleteSchool(schoolId: string) {

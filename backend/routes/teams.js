@@ -23,6 +23,10 @@ router.post('', checkAuth, (req, res, next) => {
 
 router.get('', checkAuth, (req, res, next) => {
     Team.find()
+    .populate('district')
+    .populate('sport')
+    .populate('school')
+    .populate('category')
     .then((documents) => {
         res.status(200).json({
             message: 'success',
@@ -31,27 +35,43 @@ router.get('', checkAuth, (req, res, next) => {
     });
 });
 
-// router.post('/delete', (req, res, next) => {
-//     Team.deleteMany({ _id: {$in: req.body.teams }})
-//     .then(() => {
-//         res.status(200).json({
-//             message: 'success'
-//         });
-//     });
-// });
+router.delete('/:id', (req, res, next) => {
+    Team.deleteOne({ _id: req.params.id })
+    .then(() => {
+        res.status(200).json({
+            message: 'success'
+        });
+    });
+});
 
-// router.put('/:id', (req, res, next) => {
-//     const team = new Team({
-//         _id: req.body.id,
-//         name: req.body.name,
-//         address: req.body.address
-//     });
-//     Team.updateOne({ _id: req.params.id }, team)
-//     .then(() => {
-//         res.status(200).json({
-//             message: 'success'
-//         });
-//     });
-// });
+router.put('/:id', (req, res, next) => {
+
+    Team.findOne({_id: req.params.id}, (err, foundTeam) => {
+        if(err) {
+            res.status(500).send();
+        } else {
+            if(!foundTeam) {
+                res.status(404).send();
+            } else {
+                foundTeam.name = req.body.name;
+                foundTeam.district = req.body.district;
+                foundTeam.sport = req.body.sport;
+                foundTeam.school = req.body.school;
+                foundTeam.category = req.body.category;
+
+                foundTeam.save((err, updatedTeam) => {
+                    if(err) {
+                        res.status(500).send();
+                    } else {
+                        res.status(200).json({
+                            message: 'success',
+                            data: updatedTeam
+                        });
+                    }
+                });
+            }
+        }
+    });
+});
 
 module.exports = router;

@@ -7,6 +7,8 @@ import * as fromUsers from './settings/reducers/users.reducer';
 import * as fromStadiums from './settings/reducers/stadiums.reducer';
 import * as fromDistricts from './settings/reducers/districts.reducer';
 import * as fromSchools from './settings/reducers/schools.reducer';
+import * as fromTeams from './settings/reducers/teams.reducer';
+import * as fromCategories from './settings/reducers/categories.reducer';
 
 export interface AppState {
     ui: fromUI.UiState;
@@ -16,6 +18,8 @@ export interface AppState {
     stadiums: fromStadiums.StadiumsState;
     districts: fromDistricts.DistrictsState;
     schools: fromSchools.SchoolsState;
+    teams: fromTeams.TeamsState;
+    categories: fromCategories.CategoriesState;
 }
 
 export const initialAppState: AppState = {
@@ -25,7 +29,9 @@ export const initialAppState: AppState = {
     sports: fromSports.sportsInitialState,
     stadiums: fromStadiums.stadiumsInitialState,
     districts: fromDistricts.districtsInitialState,
-    schools: fromSchools.schoolsInitialState
+    schools: fromSchools.schoolsInitialState,
+    teams: fromTeams.teamsInitialState,
+    categories: fromCategories.categoriesInitialState
 };
 
 export const appReducers: ActionReducerMap<AppState, any> = {
@@ -35,7 +41,9 @@ export const appReducers: ActionReducerMap<AppState, any> = {
     sports: fromSports.sportsReducer,
     stadiums: fromStadiums.stadiumsReducer,
     districts: fromDistricts.districtsReducer,
-    schools: fromSchools.schoolsReducer
+    schools: fromSchools.schoolsReducer,
+    teams: fromTeams.teamsReducer,
+    categories: fromCategories.categoriesReducer
 };
 
 export const selectLogin = (state: AppState) => state.login;
@@ -44,6 +52,8 @@ export const selectUser = (state: AppState) => state.users;
 export const selectStadium = (state: AppState) => state.stadiums;
 export const selectDistrict = (state: AppState) => state.districts;
 export const selectSchool = (state: AppState) => state.schools;
+export const selectTeam = (state: AppState) => state.teams;
+export const selectCategory = (state: AppState) => state.categories;
 
 export const selectAuthFailed = createSelector(
     selectLogin,
@@ -78,4 +88,14 @@ export const selectDistrictsList = createSelector(
 export const selectSchoolsList = createSelector(
     selectSchool,
     (state: fromSchools.SchoolsState) => state.schools
+);
+
+export const selectTeamsList = createSelector(
+    selectTeam,
+    (state: fromTeams.TeamsState) => state.teams
+);
+
+export const selectCategoriesList = createSelector(
+    selectCategory,
+    (state: fromCategories.CategoriesState) => state.categories
 );

@@ -35,7 +35,7 @@ export class AddUpdateUserComponent implements OnInit {
         if (this.data.userId) {
             this.title = 'Update User';
             this.passwordRequired = false;
-            this.model.id = this.data.id;
+            this.model._id = this.data._id;
             this.userForm = new FormGroup({
                 userId: new FormControl(this.data.userId, Validators.required),
                 name: new FormControl(this.data.name, Validators.required),

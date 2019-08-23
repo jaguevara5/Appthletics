@@ -37,7 +37,7 @@ export class DistrictsComponent implements OnInit {
 
     saveDistrict($event: District) {
         this.modalRef.hide();
-        if ($event.id) {
+        if ($event._id) {
             this.store.dispatch(new UpdateDistrict($event));
         } else {
             this.store.dispatch(new AddDistrict($event.name));
@@ -51,6 +51,6 @@ export class DistrictsComponent implements OnInit {
 
     deleteConfirmed() {
         this.modalRef.hide();
-        this.store.dispatch(new DeleteDistrict(this.selectedDistrict.id));
+        this.store.dispatch(new DeleteDistrict(this.selectedDistrict._id));
     }
 }

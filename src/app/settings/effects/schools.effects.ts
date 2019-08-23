@@ -18,13 +18,7 @@ export class SchoolsEffects {
             return this.schoolsService.getSchools().pipe(
                 map((response) => {
                     if (response.message === 'success') {
-                        const schools = response.data.map(school => {
-                            return {
-                                id: school._id,
-                                name: school.name,
-                                address: school.address
-                            };
-                        });
+                        const schools = response.data;
                         return new schoolsActions.SchoolsLoaded(schools);
                     } else {
                         return new schoolsActions.SchoolsError({

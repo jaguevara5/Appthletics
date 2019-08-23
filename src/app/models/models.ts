@@ -1,17 +1,17 @@
 export interface Sport {
-    id?: string;
+    _id?: string;
     name: string;
 }
 
 export interface District {
-    id?: string;
+    _id?: string;
     name: string;
 }
 
 export interface Stadium {
-    id?: string;
+    _id?: string;
     name: string;
-    address: string;
+    address?: string;
 }
 
 export enum ToastrType {
@@ -20,7 +20,30 @@ export enum ToastrType {
 }
 
 export interface School {
-    id?: string;
+    _id?: string;
     name: string;
-    address: string;
+    address?: string;
+}
+
+export interface Team {
+    _id?: string;
+    name: string;
+    district: District;
+    sport: Sport;
+    school: School;
+    category: Category;
+}
+
+export interface TeamSaveUpdate {
+    _id?: string;
+    name: string;
+    district: string;
+    sport: string;
+    school: string;
+    category: string;
+}
+
+export interface Category {
+    name: string;
+    _id: string;
 }

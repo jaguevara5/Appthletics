@@ -32,6 +32,8 @@ import { UsersEffects } from './settings/effects/users.effects';
 import { StadiumsEffects } from './settings/effects/stadiums.effects';
 import { DistrictsEffects } from './settings/effects/districts.effects';
 import { SchoolsEffects } from './settings/effects/schools.effects';
+import { TeamsEffects } from './settings/effects/teams.effects';
+import { CategoriesEffects } from './settings/effects/categories.effects';
 
 export function tokenGetter() {
   return localStorage.getItem('appthletics_token');
@@ -58,7 +60,9 @@ export function tokenGetter() {
       UsersEffects,
       StadiumsEffects,
       DistrictsEffects,
-      SchoolsEffects
+      SchoolsEffects,
+      TeamsEffects,
+      CategoriesEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

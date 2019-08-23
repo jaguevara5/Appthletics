@@ -18,13 +18,7 @@ export class StadiumsEffects {
             return this.stadiumsService.getStadiums().pipe(
                 map((response) => {
                     if (response.message === 'success') {
-                        const stadiums = response.data.map(stadium => {
-                            return {
-                                id: stadium._id,
-                                name: stadium.name,
-                                address: stadium.address
-                            };
-                        });
+                        const stadiums = response.data;
                         return new stadiumsActions.StadiumsLoaded(stadiums);
                     } else {
                         return new stadiumsActions.StadiumsError({

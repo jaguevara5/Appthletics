@@ -18,12 +18,7 @@ export class DistrictsEffects {
             return this.districtsService.getDistricts().pipe(
                 map((response) => {
                     if (response.message === 'success') {
-                        const districts = response.data.map(district => {
-                            return {
-                                id: district._id,
-                                name: district.name
-                            };
-                        });
+                        const districts = response.data;
                         return new districtsActions.DistrictsLoaded(districts);
                     } else {
                         return new districtsActions.DistrictsError({

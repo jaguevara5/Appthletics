@@ -16,19 +16,25 @@ import { UsersComponent } from './components/users/users.component';
 import { AddUpdateUserComponent } from './components/users/add-update-user/add-update-user.component';
 import { StadiumsComponent } from './components/stadiums/stadiums.component';
 import { AddUpdateStadiumComponent } from './components/stadiums/add-update-stadium/add-update-stadium.component';
-
-// Services
-import { SportsService } from './services/sports.service';
-import { UsersService } from './services/users.service';
-import { StadiumsService } from './services/stadiums.service';
-import { DistrictsComponent } from './components/districts/districts.component';
-import { DistrictsService } from './services/districts.service';
 import { DistrictsListComponent } from './components/districts/districts-list/districts-list.component';
 import { AddUpdateDistrictComponent } from './components/districts/add-update-district/add-update-district.component';
 import { SchoolsComponent } from './components/schools/schools.component';
 import { SchoolsListComponent } from './components/schools/schools-list/schools-list.component';
 import { AddUpdateSchoolComponent } from './components/schools/add-update-school/add-update-school.component';
+import { DistrictsComponent } from './components/districts/districts.component';
+import { AddUpdateTeamComponent } from './components/teams/add-update-team/add-update-team.component';
+
+// Services
+import { SportsService } from './services/sports.service';
+import { UsersService } from './services/users.service';
+import { StadiumsService } from './services/stadiums.service';
+import { DistrictsService } from './services/districts.service';
 import { SchoolsService } from './services/schools.service';
+import { TeamsService } from './services/teams.service';
+import { TeamsComponent } from './components/teams/teams.component';
+import { TeamsListComponent } from './components/teams/teams-list/teams-list.component';
+import { CategoriesService } from './services/categories.service';
+
 
 
 
@@ -46,7 +52,10 @@ import { SchoolsService } from './services/schools.service';
         AddUpdateDistrictComponent,
         SchoolsComponent,
         SchoolsListComponent,
-        AddUpdateSchoolComponent
+        AddUpdateSchoolComponent,
+        TeamsComponent,
+        TeamsListComponent,
+        AddUpdateTeamComponent
     ],
     imports: [
         HttpClientModule,
@@ -62,7 +71,9 @@ import { SchoolsService } from './services/schools.service';
         UsersService,
         StadiumsService,
         DistrictsService,
-        SchoolsService
+        SchoolsService,
+        TeamsService,
+        CategoriesService
     ],
     entryComponents: [
         SportsComponent,

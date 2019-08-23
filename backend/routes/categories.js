@@ -37,15 +37,27 @@ router.delete('/:id', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-    const category = new Category({
-        _id: req.body.id,
-        name: req.body.name,
-    });
-    Category.updateOne({ _id: req.params.id }, category)
-    .then(() => {
-        res.status(200).json({
-            message: 'success'
-        });
+    Category.findOne({_id: req.params.id}, (err, foundCategory) => {
+        if(err) {
+            res.status(500).send();
+        } else {
+            if(!foundDistrict) {
+                res.status(404).send();
+            } else {
+                foundCategory.name = req.body.name;
+
+                foundCategory.save((err, updatedCategory) => {
+                    if(err) {
+                        res.status(500).send();
+                    } else {
+                        res.status(200).json({
+                            message: 'success',
+                            data: updatedCategory
+                        });
+                    }
+                });
+            }
+        }
     });
 });
 

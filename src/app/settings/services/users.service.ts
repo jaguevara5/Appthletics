@@ -22,6 +22,6 @@ export class UsersService {
     }
 
     updateUser(user: User) {
-        return this.http.put<{message: string}>('http://localhost:3000/api/users/' + user.id, user);
+        return this.http.put<{message: string}>('http://localhost:3000/api/users/' + user._id, user);
     }
 }

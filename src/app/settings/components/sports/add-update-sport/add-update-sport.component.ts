@@ -25,16 +25,15 @@ import { UpdateSport, AddSport } from '../../../actions/sports.actions';
     constructor(
       public dialogRef: MatDialogRef<AddUpdateSportComponent>,
       @Inject(MAT_DIALOG_DATA) public data: Sport,
-      private sportsService: SportsService,
       public store: Store<fromRoot.AppState>,
     ) { }
 
     ngOnInit() {
 
-      if (this.data.id) {
+      if (this.data._id) {
         this.isNew = false;
         this.title = 'Update Sport';
-        this.model.id = this.data.id;
+        this.model._id = this.data._id;
         this.model.name = this.data.name;
       } else {
         this.title = 'Add Sport';

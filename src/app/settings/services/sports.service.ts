@@ -19,7 +19,7 @@ export class SportsService {
     }
 
     updateSport(sport: Sport) {
-        return this.http.put<{message: string}>('http://localhost:3000/api/sports/' + sport.id, sport);
+        return this.http.put<{message: string}>('http://localhost:3000/api/sports/' + sport._id, sport);
     }
 
     deleteSports(sports: string[]) {

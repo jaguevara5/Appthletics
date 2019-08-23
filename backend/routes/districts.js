@@ -28,7 +28,6 @@ router.get('', checkAuth, (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-    console.log('Deleteing...', req.params.id);
     District.deleteOne({ _id: req.params.id })
     .then(() => {
         res.status(200).json({
@@ -38,15 +37,27 @@ router.delete('/:id', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-    const district = new District({
-        _id: req.body.id,
-        name: req.body.name,
-    });
-    District.updateOne({ _id: req.params.id }, district)
-    .then(() => {
-        res.status(200).json({
-            message: 'success'
-        });
+    District.findOne({_id: req.params.id}, (err, foundDistrict) => {
+        if(err) {
+            res.status(500).send();
+        } else {
+            if(!foundDistrict) {
+                res.status(404).send();
+            } else {
+                foundDistrict.name = req.body.name;
+
+                foundDistrict.save((err, updatedDistrict) => {
+                    if(err) {
+                        res.status(500).send();
+                    } else {
+                        res.status(200).json({
+                            message: 'success',
+                            data: updatedDistrict
+                        });
+                    }
+                });
+            }
+        }
     });
 });
 

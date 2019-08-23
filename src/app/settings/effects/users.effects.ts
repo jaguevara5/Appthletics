@@ -18,16 +18,7 @@ export class UsersEffects {
             return this.usersService.getUsers().pipe(
                 map((response) => {
                     if (response.message === 'success') {
-                        const users = response.data.map(user => {
-                            return {
-                                id: user._id,
-                                userId: user.userId,
-                                name: user.name,
-                                lastname: user.lastname,
-                                username: user.username,
-                                password: user.password
-                            };
-                        });
+                        const users = response.data;
                         return new usersActions.UsersLoaded(users);
                     } else {
                         return new usersActions.UsersError({

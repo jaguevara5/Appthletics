@@ -19,7 +19,7 @@ export class DistrictsService {
     }
 
     updateDistrict(district: District) {
-        return this.http.put<{message: string}>('http://localhost:3000/api/districts/' + district.id, district);
+        return this.http.put<{message: string}>('http://localhost:3000/api/districts/' + district._id, district);
     }
 
     deleteDistrict(districtId: string) {

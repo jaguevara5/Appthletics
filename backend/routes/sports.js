@@ -37,15 +37,27 @@ router.post('/delete', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-    const sport = new Sport({
-        _id: req.body.id,
-        name: req.body.name,
-    });
-    Sport.updateOne({ _id: req.params.id }, sport)
-    .then(() => {
-        res.status(200).json({
-            message: 'success'
-        });
+    Sport.findOne({_id: req.params.id}, (err, foundSport) => {
+        if(err) {
+            res.status(500).send();
+        } else {
+            if(!foundSport) {
+                res.status(404).send();
+            } else {
+                foundSport.name = req.body.name;
+
+                foundSport.save((err, updatedSport) => {
+                    if(err) {
+                        res.status(500).send();
+                    } else {
+                        res.status(200).json({
+                            message: 'success',
+                            data: updatedSport
+                        });
+                    }
+                });
+            }
+        }
     });
 });
 
