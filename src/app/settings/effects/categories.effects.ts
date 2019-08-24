@@ -23,7 +23,7 @@ export class CategoriesEffects {
                     } else {
                         return new categoriesActions.CategoriesError({
                             title: 'Categories - Load Categories',
-                            message: 'Error while loading...'
+                            message: response.message
                         });
                     }
                 }),

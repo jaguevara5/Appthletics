@@ -1,64 +1,14 @@
 const express = require('express');
-
-const Category = require('../models/category');
 const checkAuth = require('../middleware/check-auth');
-
+const CategoriesController = require('../controllers/categories');
 const router = express.Router();
 
-router.post('', checkAuth, (req, res, next) => {
-    const post = new Category({
-        name: req.body.name
-    });
-    post.save().then(createdCategory => {
-        res.status(201).json({
-            message: 'success',
-            categoryId: createdCategory._id
-        });
-    });
-});
+router.post('', checkAuth, CategoriesController.createCatogory);
 
-router.get('', checkAuth, (req, res, next) => {
-    Category.find()
-    .then((documents) => {
-        res.status(200).json({
-            message: 'success',
-            data: documents
-        });
-    });
-});
+router.get('', checkAuth, CategoriesController.getCategories);
 
-router.delete('/:id', (req, res, next) => {
-    Category.remove({ _id: req.params.id })
-    .then(() => {
-        res.status(200).json({
-            message: 'success'
-        });
-    });
-});
+router.delete('/:id', checkAuth, CategoriesController.deleteCategory);
 
-router.put('/:id', (req, res, next) => {
-    Category.findOne({_id: req.params.id}, (err, foundCategory) => {
-        if(err) {
-            res.status(500).send();
-        } else {
-            if(!foundDistrict) {
-                res.status(404).send();
-            } else {
-                foundCategory.name = req.body.name;
-
-                foundCategory.save((err, updatedCategory) => {
-                    if(err) {
-                        res.status(500).send();
-                    } else {
-                        res.status(200).json({
-                            message: 'success',
-                            data: updatedCategory
-                        });
-                    }
-                });
-            }
-        }
-    });
-});
+router.put('/:id', checkAuth, CategoriesController.createCatogory);
 
 module.exports = router;
