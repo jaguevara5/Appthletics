@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../settings/models/user';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class LoginService {
@@ -12,7 +13,7 @@ export class LoginService {
     ) {}
 
     userLogin(user: User) {
-        return this.http.post('http://localhost:3000/api/auth/login', user);
+        return this.http.post(environment.apiUrl + '/auth/login', user);
     }
 
     isAuthenticated(): boolean {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Stadium } from '../../models/models';
+import { environment } from '../../../environments/environment'
 
 @Injectable()
 export class StadiumsService {
@@ -10,18 +11,18 @@ export class StadiumsService {
     ) {}
 
     getStadiums() {
-        return this.http.get<{message: string, data: any}>('http://localhost:3000/api/stadiums');
+        return this.http.get<{message: string, data: any}>(environment.apiUrl + '/stadiums');
     }
 
     addStadium(stadium: Stadium) {
-        return this.http.post<{message: string, stadiumId: string}>('http://localhost:3000/api/stadiums', stadium);
+        return this.http.post<{message: string, stadiumId: string}>(environment.apiUrl + '/stadiums', stadium);
     }
 
     updateStadium(stadium: Stadium) {
-        return this.http.put<{message: string}>('http://localhost:3000/api/stadiums/' + stadium._id, stadium);
+        return this.http.put<{message: string}>(environment.apiUrl + '/stadiums/' + stadium._id, stadium);
     }
 
     deleteStadiums(stadiums: string[]) {
-        return this.http.post('http://localhost:3000/api/stadiums/delete', {stadiums: stadiums});
+        return this.http.post(environment.apiUrl + '/stadiums/delete', {stadiums: stadiums});
     }
 }

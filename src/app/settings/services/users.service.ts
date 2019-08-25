@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
+import { environment } from '../../../environments/environment'
 
 @Injectable()
 export class UsersService {
@@ -10,18 +11,18 @@ export class UsersService {
     ) {}
 
     getUsers() {
-        return this.http.get<{message: string, data: any}>('http://localhost:3000/api/users');
+        return this.http.get<{message: string, data: any}>(environment.apiUrl + '/users');
     }
 
     createUser(newUser: User) {
-        return this.http.post<{message: string, data: any}>('http://localhost:3000/api/users/new', newUser);
+        return this.http.post<{message: string, data: any}>(environment.apiUrl + '/users/new', newUser);
     }
 
     deleteUsers(users: string[]) {
-        return this.http.post('http://localhost:3000/api/users/delete', {users: users});
+        return this.http.post(environment.apiUrl + '/users/delete', {users: users});
     }
 
     updateUser(user: User) {
-        return this.http.put<{message: string}>('http://localhost:3000/api/users/' + user._id, user);
+        return this.http.put<{message: string}>(environment.apiUrl + '/users/' + user._id, user);
     }
 }
