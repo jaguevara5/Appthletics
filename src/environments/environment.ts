@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://appthleticsservice-env-1.kuws2kftz2.us-east-2.elasticbeanstalk.com/api',
-  // apiUrl: 'http://localhost:3000/api',
+  // apiUrl: 'http://appthleticsservice-env-1.kuws2kftz2.us-east-2.elasticbeanstalk.com/api',
+  apiUrl: 'http://localhost:3000/api',
 };
 
 /*
