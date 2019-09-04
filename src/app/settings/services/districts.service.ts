@@ -24,6 +24,6 @@ export class DistrictsService {
     }
 
     deleteDistrict(districtId: string) {
-        return this.http.delete(environment.apiUrl + '/districts/${districtId}');
+        return this.http.delete(environment.apiUrl + '/districts/' + districtId);
     }
 }
