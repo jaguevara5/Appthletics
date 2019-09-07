@@ -1,0 +1,27 @@
+<h2>Sports</h2>
+<div class="page-content">
+
+    <div class="create-btn-wrapper">
+        <button class="btn btn-default" (click)="addNewSport()"><i class="fa fa-plus" aria-hidden="true"></i>Add New</button>
+    </div>
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="list-header-row">
+                <div class="card-title list-header">Name</div>
+                <div class="trash-header">
+                    <button class="btn btn-trash" (click)="delete(school)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div *ngFor="let sport of sports" class="list-row">
+                <div class="card-text row-content" (click)="onClickRow(sport)">
+                    <div>{{sport.name}}</div>
+                </div>
+                <div>
+                    <button class="btn btn-trash" (click)="delete(sport)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

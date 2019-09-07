@@ -38,28 +38,28 @@ export class SportsEffects {
     );
 
     @Effect() deleteSport$ = this.actions$.pipe(
-        ofType<sportsActions.DeleteSports>(sportsActions.SportsActionTypes.DELETE_SPORTS),
+        ofType<sportsActions.DeleteSport>(sportsActions.SportsActionTypes.DELETE_SPORT),
         map(action => action.payload),
-        switchMap((sports) => {
-            return this.sportsService.deleteSports(sports).pipe(
+        switchMap((sport) => {
+            return this.sportsService.deleteSport(sport).pipe(
                 map((response: any) => {
                     if (response.message === 'success') {
 
                         this.store.dispatch(new sportsActions.SportsSuccess({
-                            title: 'Delete Sports',
-                            message: 'Sport(s) deleted successfully'
+                            title: 'Delete Sport',
+                            message: 'Sport deleted successfully'
                         }));
                         return new sportsActions.LoadSports();
                     } else {
                         return new sportsActions.SportsError({
-                            title: 'Sports - Delete Sports',
+                            title: 'Sport - Delete Sport',
                             message: 'Error while deleting sports...'
                         });
                     }
                 }),
                 catchError(err => {
                     return of(new sportsActions.SportsError({
-                        title: 'Sports - Delete Sports',
+                        title: 'Sport - Delete Sport',
                         message: err.message
                     }));
                 })

@@ -4,7 +4,7 @@ import { Sport } from 'src/app/models/models';
 export const enum SportsActionTypes {
     LOAD_SPORTS = '[Sports] Load Sports',
     SPORTS_LOADED = '[Sports] Sports Loaded',
-    DELETE_SPORTS = '[Sports] Delete Sports',
+    DELETE_SPORT = '[Sports] Delete Sport',
     UPDATE_SPORT = '[Sports] Update Sport',
     ADD_SPORT = '[Sports] Add Sport',
     SPORTS_SUCCESS = '[Sports] Sports Success',
@@ -20,9 +20,9 @@ export class SportsLoaded implements Action {
     constructor(public payload: Sport[]) {}
 }
 
-export class DeleteSports implements Action {
-    readonly type = SportsActionTypes.DELETE_SPORTS;
-    constructor(public payload: string[]) {}
+export class DeleteSport implements Action {
+    readonly type = SportsActionTypes.DELETE_SPORT;
+    constructor(public payload: string) {}
 }
 
 export class UpdateSport implements Action {
@@ -48,7 +48,7 @@ export class SportsError implements Action {
 export type SportsActions
     = LoadSports
     | SportsLoaded
-    | DeleteSports
+    | DeleteSport
     | UpdateSport
     | AddSport
     | SportsSuccess

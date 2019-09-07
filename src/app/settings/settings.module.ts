@@ -12,6 +12,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { SettingsComponent } from './settings.component';
 import { AddUpdateSportComponent } from './components/sports/add-update-sport/add-update-sport.component';
 import { SportsComponent } from './components/sports/sports.component';
+import { SportsListComponent } from './components/sports/sports-list/sports-list.component';
 import { UsersComponent } from './components/users/users.component';
 import { AddUpdateUserComponent } from './components/users/add-update-user/add-update-user.component';
 import { StadiumsComponent } from './components/stadiums/stadiums.component';
@@ -41,6 +42,7 @@ import { CategoriesService } from './services/categories.service';
 @NgModule({
     declarations: [
         SportsComponent,
+        SportsListComponent,
         SettingsComponent,
         AddUpdateSportComponent,
         UsersComponent,

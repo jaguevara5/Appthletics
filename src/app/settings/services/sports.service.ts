@@ -23,7 +23,7 @@ export class SportsService {
         return this.http.put<{message: string}>(environment.apiUrl + '/sports/' + sport._id, sport);
     }
 
-    deleteSports(sports: string[]) {
-        return this.http.post(environment.apiUrl + '/sports/delete', {sports: sports});
+    deleteSport(sportId: string) {
+        return this.http.delete(environment.apiUrl + '/sports/' + sportId);
     }
 }

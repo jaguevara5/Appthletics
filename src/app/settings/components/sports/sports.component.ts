@@ -1,126 +1,56 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Sport } from '../../../models/models';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Router } from '@angular/router';
-import { Subscription, Observable,  } from 'rxjs';
-import { AddUpdateSportComponent } from './add-update-sport/add-update-sport.component';
-import { MatDialogRef } from '@angular/material';
-import { ConfirmDeleteDialogComponent } from 'src/app/shared/components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { Observable,  } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { LoadSports, DeleteSports } from '../../actions/sports.actions';
+import { LoadSports, DeleteSport, UpdateSport, AddSport } from '../../actions/sports.actions';
 import * as fromRoot from '../../../app.reducer';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-sports',
   templateUrl: './sports.component.html',
   styleUrls: ['./sports.component.css']
 })
-export class SportsComponent implements OnInit, OnDestroy {
+export class SportsComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'name', 'edit'];
-  selection = new SelectionModel<Sport>(true, []);
-
-  sportsList: MatTableDataSource<Sport>;
-  selectedItems: string[];
-
-  showPage = false;
-  dialogRef: MatDialogRef<ConfirmDeleteDialogComponent>;
-
-  isLoading: boolean;
-
-  private sportsSubsription: Subscription;
   sports$: Observable<Sport[]>;
-
-  @ViewChild(MatSort) sort: MatSort;
+  selectedSport: Sport;
+  modalRef: BsModalRef;
+  
+  @ViewChild('editTemplate') editTeamplate: ElementRef;
+  @ViewChild('deleteTemplate') deleteTeamplate: ElementRef;
   constructor(
-    private router: Router,
-    public store: Store<fromRoot.AppState>,
-    public dialog: MatDialog,
-  ) {
+      public store: Store<fromRoot.AppState>,
+      private modalService: BsModalService) {
+
   }
 
   ngOnInit() {
+      this.store.dispatch(new LoadSports());
+      this.sports$ = this.store.pipe(select(fromRoot.selectSportsList));
+  }
 
-    this.isLoading = true;
-    this.store.dispatch(new LoadSports());
-    this.sports$ = this.store.pipe(select(fromRoot.selectSportsList));
-    this.sportsSubsription = this.sports$.subscribe((sports: Sport[]) => {
-      if (sports) {
-        this.sportsList = new MatTableDataSource(sports);
-        this.sportsList.sort = this.sort;
-        this.selectedItems = [];
-        this.isLoading = false;
-        this.showPage = true;
+  addUpdateSport($event: Sport) {
+      this.selectedSport = $event;
+      this.modalRef = this.modalService.show(this.editTeamplate);
+  }
+
+  saveSport($event: Sport) {
+      this.modalRef.hide();
+      if ($event._id) {
+          this.store.dispatch(new UpdateSport($event));
+      } else {
+          this.store.dispatch(new AddSport($event.name));
       }
-    });
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.sportsList.data.length;
-    return numSelected === numRows;
+  deleteSport($event: Sport) {
+      this.selectedSport = $event;
+      this.modalRef = this.modalService.show(this.deleteTeamplate);
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-
-    this.selectedItems = [];
-    if (this.isAllSelected()) {
-      this.selection.clear();
-    } else {
-      this.sportsList.data.forEach(row => {
-        this.selection.select(row);
-        this.selectedItems.push(row._id);
-      });
-    }
-  }
-
-  rowClicked(item: Sport, wasChecked: boolean) {
-    if (wasChecked) {
-      this.selectedItems = this.selectedItems.filter(id => item._id !== id);
-    } else {
-      this.selectedItems.push(item._id);
-    }
-  }
-
-  editSport(item: Sport) {
-    this.dialog.open(AddUpdateSportComponent, {
-      data: {
-        _id: item._id,
-        name: item.name
-      }
-    });
-  }
-
-  removeSelectedSports() {
-    this.dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
-      disableClose: false
-    });
-    this.dialogRef.componentInstance.confirmMessage =
-      `Are you sure you want to delete ${this.selectedItems.length} item(s)?`;
-
-    this.dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.store.dispatch(new DeleteSports(this.selectedItems));
-      }
-      this.dialogRef = null;
-    });
-  }
-
-  cancel() {
-    this.router.navigate(['/settings']);
-  }
-
-  addSport() {
-    this.dialog.open(AddUpdateSportComponent, {
-      data: {
-
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.sportsSubsription.unsubscribe();
+  deleteConfirmed() {
+      this.modalRef.hide();
+      this.store.dispatch(new DeleteSport(this.selectedSport._id));
   }
 }

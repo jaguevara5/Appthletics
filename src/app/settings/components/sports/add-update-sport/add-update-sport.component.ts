@@ -1,76 +1,23 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Sport } from '../../../../models/models';
-import {  MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { SportsService } from '../../../services/sports.service';
-import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import * as fromRoot from '../../../../app.reducer';
-import { UpdateSport, AddSport } from '../../../actions/sports.actions';
-
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Sport } from 'src/app/models/models';
 
 @Component({
     selector: 'app-add-update-sport',
-    templateUrl: './add-update-sport.component.html',
-    styleUrls: ['./add-update-sport.component.css']
-  })
-  export class AddUpdateSportComponent implements OnInit {
+    templateUrl: './add-update-sport.component.html'
+})
+export class AddUpdateSportComponent {
+    @Input() sport: Sport;
+    @Output() closeModal = new EventEmitter();
+    @Output() saveSport = new EventEmitter<Sport>();
 
-    title: string;
-    form = new FormGroup({});
-    model = {} as Sport;
-    fields: FormlyFieldConfig[];
-    isNew = true;
-
-    constructor(
-      public dialogRef: MatDialogRef<AddUpdateSportComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: Sport,
-      public store: Store<fromRoot.AppState>,
-    ) { }
-
-    ngOnInit() {
-
-      if (this.data._id) {
-        this.isNew = false;
-        this.title = 'Update Sport';
-        this.model._id = this.data._id;
-        this.model.name = this.data.name;
-      } else {
-        this.title = 'Add Sport';
-      }
-      this.initializeFields();
+    isEditMode = false;
+    wasInside = false;
+    
+    cancel() {
+        this.closeModal.emit();
     }
 
-    initializeFields() {
-
-      this.fields = [
-        {
-          key: 'name',
-          type: 'input',
-          templateOptions: {
-            label: 'Name',
-            placeholder: 'Sport\'s name',
-            required: true,
-          }
-        }
-      ];
+    save() {
+        this.saveSport.emit(this.sport);
     }
-
-    submit(model: Sport) {
-
-      if (this.isNew) {
-        this.store.dispatch(new AddSport(model.name));
-      } else {
-        this.store.dispatch(new UpdateSport(model));
-      }
-      this.dialogRef.close();
-    }
-
-    isFormValid() {
-      return this.form.valid;
-    }
-
-    onNoClick(): void {
-      this.dialogRef.close();
-    }
-  }
+}
