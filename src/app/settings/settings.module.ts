@@ -16,6 +16,7 @@ import { SportsListComponent } from './components/sports/sports-list/sports-list
 import { UsersComponent } from './components/users/users.component';
 import { AddUpdateUserComponent } from './components/users/add-update-user/add-update-user.component';
 import { StadiumsComponent } from './components/stadiums/stadiums.component';
+import { StadiumsListComponent } from './components/stadiums/stadiums-list/stadiums-list.component';
 import { AddUpdateStadiumComponent } from './components/stadiums/add-update-stadium/add-update-stadium.component';
 import { DistrictsListComponent } from './components/districts/districts-list/districts-list.component';
 import { AddUpdateDistrictComponent } from './components/districts/add-update-district/add-update-district.component';
@@ -48,6 +49,7 @@ import { CategoriesService } from './services/categories.service';
         UsersComponent,
         AddUpdateUserComponent,
         StadiumsComponent,
+        StadiumsListComponent,
         AddUpdateStadiumComponent,
         DistrictsComponent,
         DistrictsListComponent,

@@ -1,0 +1,31 @@
+<h2>Stadiums</h2>
+<div class="page-content">
+
+    <div class="create-btn-wrapper">
+        <button class="btn btn-default" (click)="addNewStadium()"><i class="fa fa-plus" aria-hidden="true"></i>Add New</button>
+    </div>
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="list-header-row">
+                <div class="card-title list-header">Name</div>
+                <div class="card-title list-header">Address</div>
+                <div class="trash-header">
+                    <button class="btn btn-trash" (click)="delete(stadium)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div *ngFor="let stadium of stadiums" class="list-row">
+                <div class="card-text row-content" (click)="onClickRow(stadium)">
+                    <div>{{stadium.name}}</div>
+                </div>
+                <div class="card-text row-content" (click)="onClickRow(stadium)">
+                    <div>{{stadium.address}}</div>
+                </div>
+                <div>
+                    <button class="btn btn-trash" (click)="delete(stadium)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

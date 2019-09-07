@@ -38,10 +38,10 @@ export class StadiumsEffects {
     );
 
     @Effect() deleteStadium$ = this.actions$.pipe(
-        ofType<stadiumsActions.DeleteStadiums>(stadiumsActions.StadiumsActionTypes.DELETE_STADIUMS),
+        ofType<stadiumsActions.DeleteStadium>(stadiumsActions.StadiumsActionTypes.DELETE_STADIUM),
         map(action => action.payload),
-        switchMap((stadiums) => {
-            return this.stadiumsService.deleteStadiums(stadiums).pipe(
+        switchMap((stadium) => {
+            return this.stadiumsService.deleteStadium(stadium).pipe(
                 map((response: any) => {
                     if (response.message === 'success') {
 

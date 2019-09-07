@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Stadium } from '../../models/models';
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class StadiumsService {
@@ -22,7 +22,7 @@ export class StadiumsService {
         return this.http.put<{message: string}>(environment.apiUrl + '/stadiums/' + stadium._id, stadium);
     }
 
-    deleteStadiums(stadiums: string[]) {
-        return this.http.post(environment.apiUrl + '/stadiums/delete', {stadiums: stadiums});
+    deleteStadium(stadiumId: string) {
+        return this.http.delete(environment.apiUrl + '/stadiums/' + stadiumId);
     }
 }

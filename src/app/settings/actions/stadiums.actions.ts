@@ -4,7 +4,7 @@ import { Stadium } from 'src/app/models/models';
 export const enum StadiumsActionTypes {
     LOAD_STADIUMS = '[Stadiums] Load Stadiums',
     STADIUMS_LOADED = '[Stadiums] Stadiums Loaded',
-    DELETE_STADIUMS = '[Stadiums] Delete Stadiums',
+    DELETE_STADIUM = '[Stadiums] Delete Stadiums',
     UPDATE_STADIUM = '[Stadiums] Update Stadium',
     ADD_STADIUM = '[Stadiums] Add Stadium',
     STADIUM_SUCCESS = '[Stadiums] Stadiums Success',
@@ -20,9 +20,9 @@ export class StadiumsLoaded implements Action {
     constructor(public payload: Stadium[]) {}
 }
 
-export class DeleteStadiums implements Action {
-    readonly type = StadiumsActionTypes.DELETE_STADIUMS;
-    constructor(public payload: string[]) {}
+export class DeleteStadium implements Action {
+    readonly type = StadiumsActionTypes.DELETE_STADIUM;
+    constructor(public payload: string) {}
 }
 
 export class UpdateStadium implements Action {
@@ -48,7 +48,7 @@ export class StadiumsError implements Action {
 export type StadiumsActions
     = LoadStadiums
     | StadiumsLoaded
-    | DeleteStadiums
+    | DeleteStadium
     | UpdateStadium
     | AddStadium
     | StadiumsSuccess
