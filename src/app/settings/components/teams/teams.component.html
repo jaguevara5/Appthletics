@@ -1,21 +1,43 @@
 <div *ngIf="(teams$ | async) as teams; else loading">
-    <app-teams-list
-        [teams]=teams
-        (addUpdateTeam)=addUpdateTeam($event)
-        (deleteTeam)="deleteTeam($event)"></app-teams-list>
+    <h2>Teams</h2>
+    <div class="page-content">
+        
+        <div class="row">
+            <div class="col-md-4">
+                <select [(ngModel)]="districtFilter" (change)="onFilterChange()">
+                    <option *ngFor="let district of districts" [ngValue]="district._id">{{district.name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select [(ngModel)]="sportFilter" (change)="onFilterChange()">
+                    <option *ngFor="let sport of sports" [ngValue]="sport._id">{{sport.name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select [(ngModel)]="categoryFilter" (change)="onFilterChange()">
+                    <option *ngFor="let category of categories" [ngValue]="category._id">{{category.name}}</option>
+                </select>
+            </div>
+        </div>
+        <app-teams-list
+            [teams]=teams
+            (addUpdateTeam)=addUpdateTeam($event)
+            (deleteTeam)="deleteTeam($event)"></app-teams-list>
+    </div>
 </div>
 <ng-template #loading>
     <app-spinner></app-spinner>
 </ng-template>
 
 <ng-template #editTemplate>
-    <div *ngIf="(allData$ | async) as data; else loading">
+    <!-- <div *ngIf="(allData$ | async) as data; else loading"> -->
+    <div>
         <app-add-update-team
             [team]="selectedTeam"
-            [schools]=data[0]
-            [districts]=data[1]
-            [sports]=data[2]
-            [categories]=data[3]
+            [schools]=schools
+            [districts]=districts
+            [sports]=sports
+            [categories]=categories
             (closeModal)="modalRef.hide()"
             (saveTeam)="saveTeam($event)">
         </app-add-update-team>

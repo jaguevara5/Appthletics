@@ -14,8 +14,9 @@ export class TeamsEffects {
 
     @Effect() loadTeams$ = this.actions$.pipe(
         ofType<teamsActions.LoadTeams>(teamsActions.TeamsActionTypes.LOAD_TEAMS),
-        switchMap(() =>  {
-            return this.teamsService.getTeams().pipe(
+        map(action => action.payload),
+        switchMap((params) =>  {
+            return this.teamsService.getTeams(params).pipe(
                 map((response) => {
                     if (response.message === 'success') {
                         const teams = response.data;
@@ -58,7 +59,11 @@ export class TeamsEffects {
                             message: 'Team updated successfully'
                         }));
 
-                        return new teamsActions.LoadTeams();
+                        return new teamsActions.LoadTeams({
+                            district: team.district._id,
+                            sport: team.sport._id,
+                            category: team.category._id
+                        });
                     } else {
                         return new teamsActions.TeamsError({
                             title: 'Teams - Update Team',
@@ -90,13 +95,16 @@ export class TeamsEffects {
             return this.teamsService.addTeam(newTeam).pipe(
                 map((response: any) => {
                     if (response.message === 'success') {
-
                         this.store.dispatch(new teamsActions.TeamsSuccess({
                             title: 'Add Team',
                             message: 'Team added successfully'
                         }));
 
-                        return new teamsActions.LoadTeams();
+                        return new teamsActions.LoadTeams({
+                            district: team.district._id,
+                            sport: team.sport._id,
+                            category: team.category._id
+                        });
                     } else {
                         return new teamsActions.TeamsError({
                             title: 'Teams - Add Team',
@@ -118,15 +126,19 @@ export class TeamsEffects {
         ofType<teamsActions.DeleteTeam>(teamsActions.TeamsActionTypes.DELETE_TEAM),
         map(action => action.payload),
         switchMap((team) => {
-            return this.teamsService.deleteTeam(team).pipe(
+            return this.teamsService.deleteTeam(team._id).pipe(
                 map((response: any) => {
                     if (response.message === 'success') {
-
                         this.store.dispatch(new teamsActions.TeamsSuccess({
-                            title: 'Delete Team',
-                            message: 'Team deleted successfully'
+                            title: 'Update Team',
+                            message: 'Team updated successfully'
                         }));
-                        return new teamsActions.LoadTeams();
+
+                        return new teamsActions.LoadTeams({
+                            district: team.district._id,
+                            sport: team.sport._id,
+                            category: team.category._id
+                        });
                     } else {
                         return new teamsActions.TeamsError({
                             title: 'Teams - Delete Team',

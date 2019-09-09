@@ -47,3 +47,9 @@ export interface Category {
     name: string;
     _id: string;
 }
+
+export interface TeamsQueryParams {
+    district: string;
+    sport: string;
+    category: string;
+}

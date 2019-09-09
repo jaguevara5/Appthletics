@@ -1,42 +1,38 @@
-<h2>Teams</h2>
-<div class="page-content">
+<div class="create-btn-wrapper">
+    <button class="btn btn-default" (click)="addNewTeam()"><i class="fa fa-plus" aria-hidden="true"></i>Add New</button>
+</div>
+<div class="card shadow-sm">
 
-    <div class="create-btn-wrapper">
-        <button class="btn btn-default" (click)="addNewTeam()"><i class="fa fa-plus" aria-hidden="true"></i>Add New</button>
-    </div>
-    <div class="card shadow-sm">
+    <div class="card-body">
 
-        <div class="card-body">
-
-            <div class="list-header-row">
-                <div class="card-title list-header">Name</div>
-                <div class="card-title list-header">School</div>
-                <div class="card-title list-header">Sport</div>
-                <div class="card-title list-header">District</div>
-                <div class="card-title list-header">Category</div>
-                <div class="trash-header">
-                    <button class="btn btn-trash" (click)="delete(team)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                </div>
+        <div class="list-header-row">
+            <div class="card-title list-header">Name</div>
+            <div class="card-title list-header">School</div>
+            <div class="card-title list-header">Sport</div>
+            <div class="card-title list-header">District</div>
+            <div class="card-title list-header">Category</div>
+            <div class="trash-header">
+                <button class="btn btn-trash" (click)="delete(team)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
-            <div *ngFor="let team of teams" class="list-row">
-                <div class="card-text row-content" (click)="onClickRow(team)">
-                    <div>{{team.name}}</div>
-                </div>
-                <div class="card-text row-content" (click)="onClickRow(team)">
-                    <div>{{team.school.name}}</div>
-                </div>
-                <div class="card-text row-content" (click)="onClickRow(team)">
-                    <div>{{team.sport.name}}</div>
-                </div>
-                <div class="card-text row-content" (click)="onClickRow(team)">
-                    <div>{{team.district.name}}</div>
-                </div>
-                <div class="card-text row-content" (click)="onClickRow(team)">
-                    <div>{{team.category.name}}</div>
-                </div>
-                <div>
-                    <button class="btn btn-trash" (click)="delete(team)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                </div>
+        </div>
+        <div *ngFor="let team of teams" class="list-row">
+            <div class="card-text row-content" (click)="onClickRow(team)">
+                <div>{{team.name}}</div>
+            </div>
+            <div class="card-text row-content" (click)="onClickRow(team)">
+                <div>{{team.school.name}}</div>
+            </div>
+            <div class="card-text row-content" (click)="onClickRow(team)">
+                <div>{{team.sport.name}}</div>
+            </div>
+            <div class="card-text row-content" (click)="onClickRow(team)">
+                <div>{{team.district.name}}</div>
+            </div>
+            <div class="card-text row-content" (click)="onClickRow(team)">
+                <div>{{team.category.name}}</div>
+            </div>
+            <div>
+                <button class="btn btn-trash" (click)="delete(team)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
         </div>
     </div>

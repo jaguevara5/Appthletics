@@ -25,6 +25,15 @@ export class TeamsComponent implements OnInit {
     categories$: Observable<Category[]>;
     allData$: Observable<any[]>;
     selectedTeam: Team;
+    schools: School[];
+    districts: District[];
+    sports: Sport[];
+    categories: Category[];
+
+    districtFilter: string;
+    sportFilter: string;
+    categoryFilter: string;
+
     modalRef: BsModalRef;
     
     @ViewChild('editTemplate') editTeamplate: ElementRef;
@@ -36,7 +45,7 @@ export class TeamsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store.dispatch(new LoadTeams());
+
         this.store.dispatch(new LoadSchools());
         this.store.dispatch(new LoadDistricts());
         this.store.dispatch(new LoadSports());
@@ -49,6 +58,21 @@ export class TeamsComponent implements OnInit {
         this.allData$ = combineLatest([this.schools$, this.districts$, this.sports$, this.categories$]).pipe(
             filter(([schools, districts, sports, categories]) => !!schools && !!districts && !!sports && !!categories)
         );
+
+        this.allData$.subscribe(([schools, districts, sports, categories]) => {
+            this.schools = [...schools];
+            this.districts = [...districts];
+            this.sports = [...sports];
+            this.categories = [...categories];
+            this.districtFilter = this.districts[0]._id;
+            this.sportFilter = this.sports[0]._id;
+            this.categoryFilter = this.categories[0]._id;
+            this.store.dispatch(new LoadTeams({
+                district: this.districtFilter,
+                sport: this.sportFilter,
+                category: this.categoryFilter 
+            }));
+        });
     }
 
     addUpdateTeam($event: Team) {
@@ -57,6 +81,9 @@ export class TeamsComponent implements OnInit {
     }
 
     saveTeam($event: Team) {
+        this.districtFilter = $event.district._id;
+        this.sportFilter = $event.sport._id;
+        this.categoryFilter = $event.category._id;
         this.modalRef.hide();
         if ($event._id) {
             this.store.dispatch(new UpdateTeam($event));
@@ -72,6 +99,32 @@ export class TeamsComponent implements OnInit {
 
     deleteConfirmed() {
         this.modalRef.hide();
-        this.store.dispatch(new DeleteTeam(this.selectedTeam._id));
+        this.store.dispatch(new DeleteTeam(this.selectedTeam));
+    }
+
+    onDistrictChange(districtId: string) {
+        this.districtFilter = districtId;
+        this.store.dispatch(new LoadTeams({
+            district: this.districtFilter,
+            sport: this.sportFilter,
+            category: this.categoryFilter 
+        }));
+    }
+
+    onFilterChange() {
+        this.store.dispatch(new LoadTeams({
+            district: this.districtFilter,
+            sport: this.sportFilter,
+            category: this.categoryFilter 
+        }));
+    }
+
+    onCategoryChange(categoryId: string) {
+        this.categoryFilter = categoryId;
+        this.store.dispatch(new LoadTeams({
+            district: this.districtFilter,
+            sport: this.sportFilter,
+            category: this.categoryFilter 
+        }));
     }
 }

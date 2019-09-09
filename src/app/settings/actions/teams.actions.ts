@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Team } from 'src/app/models/models';
+import { Team, TeamsQueryParams } from 'src/app/models/models';
 
 export const enum TeamsActionTypes {
     LOAD_TEAMS = '[Teams] Load Teams',
@@ -13,6 +13,7 @@ export const enum TeamsActionTypes {
 
 export class LoadTeams implements Action {
     readonly type = TeamsActionTypes.LOAD_TEAMS;
+    constructor(public payload: TeamsQueryParams) {}
 }
 
 export class TeamsLoaded implements Action {
@@ -32,7 +33,7 @@ export class AddTeam implements Action {
 
 export class DeleteTeam implements Action {
     readonly type = TeamsActionTypes.DELETE_TEAM;
-    constructor(public payload: string) {}
+    constructor(public payload: Team) {}
 }
 
 export class TeamsSuccess implements Action {

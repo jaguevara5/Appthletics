@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TeamSaveUpdate } from '../../models/models';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { TeamSaveUpdate, TeamsQueryParams } from '../../models/models';
 import { environment } from '../../../environments/environment'
 
 @Injectable()
@@ -10,8 +10,12 @@ export class TeamsService {
         private http: HttpClient
     ) {}
 
-    getTeams() {
-        return this.http.get<{message: string, data: any}>(environment.apiUrl + '/teams');
+    getTeams(params: TeamsQueryParams) {
+        let queryParams = new HttpParams();
+        queryParams = queryParams.append('district', params.district);
+        queryParams = queryParams.append('sport', params.sport);
+        queryParams = queryParams.append('category', params.category);
+        return this.http.get<{message: string, data: any}>(environment.apiUrl + '/teams', { params: queryParams });
     }
 
     addTeam(team: TeamSaveUpdate) {
