@@ -107,8 +107,8 @@ export class UsersEffects {
                     if (response.message === 'success') {
 
                         this.store.dispatch(new usersActions.UsersSuccess({
-                            title: 'Update Sport',
-                            message: 'Sport updated successfully'
+                            title: 'Update User',
+                            message: 'User updated successfully'
                         }));
 
                         return new usersActions.LoadUsers();
