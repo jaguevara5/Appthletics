@@ -34,6 +34,7 @@ import { DistrictsEffects } from './settings/effects/districts.effects';
 import { SchoolsEffects } from './settings/effects/schools.effects';
 import { TeamsEffects } from './settings/effects/teams.effects';
 import { CategoriesEffects } from './settings/effects/categories.effects';
+import { SchedulesModule } from './schedules/schedules.module';
 
 export function tokenGetter() {
   return localStorage.getItem('appthletics_token');
@@ -49,6 +50,7 @@ export function tokenGetter() {
   imports: [
     BrowserModule,
     SettingsModule,
+    SchedulesModule,
     LoginModule,
     BrowserAnimationsModule,
     routing,

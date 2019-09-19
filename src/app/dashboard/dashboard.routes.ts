@@ -7,6 +7,7 @@ import { StadiumsComponent } from '../settings/components/stadiums/stadiums.comp
 import { DistrictsComponent } from '../settings/components/districts/districts.component';
 import { SchoolsComponent } from '../settings/components/schools/schools.component';
 import { TeamsComponent } from '../settings/components/teams/teams.component';
+import { SchedulesComponent } from '../schedules/schedules.component';
 
 export const dashBoardRoutes: Routes = [
     {
@@ -42,6 +43,11 @@ export const dashBoardRoutes: Routes = [
     {
         path: 'settings/teams',
         component: TeamsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'schedules',
+        component: SchedulesComponent,
         canActivate: [AuthGuard]
     }
 ];

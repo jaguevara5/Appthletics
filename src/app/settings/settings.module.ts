@@ -80,10 +80,7 @@ import { CategoriesService } from './services/categories.service';
         CategoriesService
     ],
     entryComponents: [
-        SportsComponent,
-        AddUpdateSportComponent,
-        AddUpdateUserComponent,
-        AddUpdateStadiumComponent
+        AddUpdateUserComponent
     ],
   })
   export class SettingsModule { }
